@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('/reglement',"ReglementController");
+Route::resource('/mode_reglement',"ModeReglementController");
+Route::resource('/condition_reglement',"ConditionReglementController");
+Route::resource('/interet_retard',"InteretRetardController");
+Route::resource('/compte_bancaire',"CompteBancaireController");
+Route::resource('/devis',"DevisController");
+Route::resource('/factures',"FactureController");
+
+
+
+
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
