@@ -15,7 +15,7 @@ class CreateModeReglementsTable extends Migration
     {
         Schema::create('mode_reglements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('mode_value');		
+            $table->text('mode_value');
             $table->timestamps();
         });
     }

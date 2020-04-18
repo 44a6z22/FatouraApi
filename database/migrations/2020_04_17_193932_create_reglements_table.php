@@ -14,25 +14,27 @@ class CreateReglementsTable extends Migration
     public function up()
     {
         Schema::create('reglements', function (Blueprint $table) {
-            $table->bigIncrements('id');	
-            $table->unsignedBigInteger('mode_id');
-            
-            $table->foreign('mode_id')->references('id')->on('mode_reglements'); 
-            $table->unsignedBigInteger('condition_id');
-            $table->foreign('condition_id')->references('id')->on('condition_reglements');
+            $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('inter_id');
-            $table->foreign('inter_id')->references('id')->on('interet_retards');  
+            $table->unsignedBigInteger('mode_reglement_id');
+            $table->foreign('mode_reglement_id')->references('id')->on('mode_reglements');
 
-            $table->unsignedBigInteger('Compte_Bank_id');
-            $table->foreign('Compte_Bank_id')->references('id')->on('compte_bancaires');  
+            $table->unsignedBigInteger('condition_reglement_id');
+            $table->foreign('condition_reglement_id')->references('id')->on('condition_reglements');
 
-            $table->unsignedBigInteger('devis_id');
-            $table->foreign('devis_id')->references('id')->on('Devis');  
+            $table->unsignedBigInteger('interet_retard_id');
+            $table->foreign('interet_retard_id')->references('id')->on('interet_retards');
 
-            $table->unsignedBigInteger('facture_id');
-            $table->foreign('facture_id')->references('id')->on('factures');  
+            $table->unsignedBigInteger('compte_bancaire_id')->nullable();
+            $table->foreign('compte_bancaire_id')->references('id')->on('compte_bancaires');
 
+            $table->unsignedBigInteger('devis_id')->nullable();
+            $table->foreign('devis_id')->references('id')->on('Devis');
+
+            $table->unsignedBigInteger('facture_id')->nullable();
+            $table->foreign('facture_id')->references('id')->on('factures');
+
+            $table->unique(['facture_id', 'devis_id']);
 
             $table->timestamps();
         });

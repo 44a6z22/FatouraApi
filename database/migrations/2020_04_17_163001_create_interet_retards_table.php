@@ -15,7 +15,7 @@ class CreateInteretRetardsTable extends Migration
     {
         Schema::create('interet_retards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('inter_value');		
+            $table->text('inter_value');
             $table->timestamps();
         });
     }

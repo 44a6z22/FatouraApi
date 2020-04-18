@@ -15,7 +15,7 @@ class CreateConditionReglementsTable extends Migration
     {
         Schema::create('condition_reglements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('Condition_value');		
+            $table->text('Condition_value');
             $table->timestamps();
         });
     }
