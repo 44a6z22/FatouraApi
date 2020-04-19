@@ -21,6 +21,11 @@ class Reglement extends Model
         return $this->belongsTo('App\Compte_bancaire');
     }
 
+    public function interet_retard()
+    {
+        return $this->belongsTo(interet_retard::class);
+    }
+
     public function  devis()
     {
         return $this->belongsTo('App\Devis');

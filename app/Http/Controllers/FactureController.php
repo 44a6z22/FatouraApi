@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Facture;
+use App\Http\Resources\FactureResource;
+use App\Reglement;
 use Illuminate\Http\Request;
 
 class FactureController extends Controller
@@ -15,8 +17,7 @@ class FactureController extends Controller
     public function index()
     {
         //
-        $facture=Facture::all();
-        return $facture;  
+        return FactureResource::collection(Facture::all());
     }
 
     /**
@@ -37,9 +38,27 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $facture=new Facture();
+        // //
+        // $request->validate([
+        //     "Condition_id" => 'required',
+        //     "Mode_id" => 'required'
+        // ]);
+
+
+        // dd($request);
+        $facture = new Facture();
         $facture->save();
+
+        $Reglement = new Reglement();
+        $Reglement->condition_reglement_id = $request->reglement["condition_id"];
+        $Reglement->mode_reglement_id = $request->reglement['mode_id'];
+        $Reglement->interet_retard_id = 1;
+        $Reglement->facture_id = $facture->id;
+
+        if (!$Reglement->save()) {
+            $facture->delete();
+        }
+
         return $facture;
     }
 
@@ -52,6 +71,7 @@ class FactureController extends Controller
     public function show($id)
     {
         //
+        return new FactureResource(Facture::find($id));
     }
 
     /**
@@ -63,7 +83,7 @@ class FactureController extends Controller
     public function edit($id)
     {
         //$
-      
+
     }
 
     /**
@@ -76,7 +96,7 @@ class FactureController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $facture=Facture::find($id);
+        $facture = Facture::find($id);
         $facture->save();
         return $facture;
     }
@@ -90,7 +110,7 @@ class FactureController extends Controller
     public function destroy($id)
     {
         //
-        $facture=Facture::find($id);
+        $facture = Facture::find($id);
         $facture->delete();
     }
 }
