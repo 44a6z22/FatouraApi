@@ -14,4 +14,7 @@ class Facture extends Model
     public function  articles(){
         return $this->hasMany('App\Article');
     }
+    public function  text_Document(){
+        return $this->belongsTo('App\Text_Document');
+    }
 }

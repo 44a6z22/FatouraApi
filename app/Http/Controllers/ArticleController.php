@@ -41,7 +41,6 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
-        
         $article=new Article();
         $type_article=new Type_article();
         $facture=new Facture();
@@ -51,20 +50,12 @@ class ArticleController extends Controller
         $type_article->article_type_value_eng=$request->input('article_type_value_eng');
         $type_article->save();
         $article->type_articles_id=$type_article->id;
-
-
-
-
-
         $devis->duree_validité=$request->input('duree_validité');
         $devis->save();
         $article->devis_id=$devis->id;
-
         $facture->save();
+        
         $article->facture_id=$facture->id;
-
-
-
         $article->quantité=$request->input('quantité');
         $article->prix_ht=$request->input('prix_ht');
         $article->tva=$request->input('tva');
@@ -74,10 +65,6 @@ class ArticleController extends Controller
         $article->description=$request->input('description');
         $article->save();
        
-
-
-
-
         return[
             ["article:" , $article],
             ["type_article:" , $type_article],

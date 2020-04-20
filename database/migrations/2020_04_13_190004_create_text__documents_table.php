@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevisTable extends Migration
+class CreateTextDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreateDevisTable extends Migration
      */
     public function up()
     {
-        Schema::create('devis', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            
-            $table->unsignedBigInteger('textDocument_id');
-            $table->foreign('textDocument_id')->references('id')->on('text__documents');
-
-
-
-            $table->integer('duree_validité');
+        Schema::create('text__documents', function (Blueprint $table) {
+            $table->id();
+            $table->text('Introduction');
+            $table->text('Conclusion');
+            $table->text('Pied_page');
+            $table->text('Condition_general');
             $table->timestamps();
+
         });
     }
-    
 
     /**
      * Reverse the migrations.
@@ -34,6 +31,6 @@ class CreateDevisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devis');
+        Schema::dropIfExists('text__documents');
     }
 }
