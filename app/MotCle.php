@@ -11,4 +11,8 @@ class MotCle extends Model
     {
         return $this->belongsTo('App\Client');
     }
+    public function  societe()
+    {
+        return $this->belongsTo('App\Societe');
+    }
 }

@@ -19,6 +19,9 @@ class CreateMotClésTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
 
+            $table->unsignedBigInteger('societe_id');
+            $table->foreign('societe_id')->references('id')->on('societes');
+
 
             $table->text('Mot_de_value');
             $table->timestamps();

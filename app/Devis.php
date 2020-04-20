@@ -22,5 +22,10 @@ class Devis extends Model
     public function  client(){
         return $this->belongsTo('App\Client');
     }
+    public function societes()
+    {
+        return $this->hasMany('App\Societe');
+    }
+
 
 }

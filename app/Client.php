@@ -24,5 +24,12 @@ class Client extends Model
     public function factures(){
         return $this->hasMany('App\Facture');
     }
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+      
+    public function societe(){
+        return $this->belongsTo('App\Societe');
+    }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNumtelesTable extends Migration
+class CreateDevisSocieteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,18 @@ class CreateNumtelesTable extends Migration
      */
     public function up()
     {
-        Schema::create('numteles', function (Blueprint $table) {
+        Schema::create('devis_societe', function (Blueprint $table) {
+
             $table->id();
 
-            $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
-
+            $table->unsignedBigInteger('devis_id');
+            $table->foreign('devis_id')->references('id')->on('devis');
 
             $table->unsignedBigInteger('societe_id');
             $table->foreign('societe_id')->references('id')->on('societes');
 
 
 
-            $table->text('Num_value');
-            $table->timestamps();
         });
     }
 
@@ -37,6 +35,6 @@ class CreateNumtelesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('numteles');
+        Schema::dropIfExists('devis_societe');
     }
 }
