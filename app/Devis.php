@@ -19,5 +19,8 @@ class Devis extends Model
     public function  statut(){
         return $this->belongsTo('App\Status');
     }
+    public function  client(){
+        return $this->belongsTo('App\Client');
+    }
 
 }

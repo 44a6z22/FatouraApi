@@ -17,5 +17,12 @@ class Client extends Model
         return $this->hasMany('App\Adress');
     }
 
-    
+    public function devises(){
+        return $this->hasMany('App\Devis');
+    }
+
+    public function factures(){
+        return $this->hasMany('App\Facture');
+    }
+
 }
