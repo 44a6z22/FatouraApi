@@ -17,7 +17,9 @@ class FactureController extends Controller
     public function index()
     {
         //
-        return FactureResource::collection(Facture::all());
+        return [
+            "factures" => FactureResource::collection(Facture::all())
+        ];
     }
 
     /**
@@ -39,10 +41,9 @@ class FactureController extends Controller
     public function store(Request $request)
     {
         // //
-        // $request->validate([
-        //     "Condition_id" => 'required',
-        //     "Mode_id" => 'required'
-        // ]);
+        $request->validate([
+            "reglement" => 'required',
+        ]);
 
 
         // dd($request);
@@ -52,7 +53,7 @@ class FactureController extends Controller
         $Reglement = new Reglement();
         $Reglement->condition_reglement_id = $request->reglement["condition_id"];
         $Reglement->mode_reglement_id = $request->reglement['mode_id'];
-        $Reglement->interet_retard_id = 1;
+        $Reglement->interet_retard_id = $request->reglement['interet_id'];
         $Reglement->facture_id = $facture->id;
 
         if (!$Reglement->save()) {

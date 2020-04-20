@@ -1,0 +1,25 @@
+@BaseUri = http://127.0.0.1:8000/api 
+@Controller = devis
+@id = 2
+
+###
+
+GET {{BaseUri}}/{{Controller}}
+
+###
+
+GET {{BaseUri}}/{{Controller}}/{{id}}
+
+###
+
+POST {{BaseUri}}/{{Controller}}
+Content-Type: application/json
+
+{
+    "duree_validite": 3,
+    "reglement" : {
+        "condition_id" : 3, 
+        "mode_id" : 1, 
+        "interet_id": 3
+    }
+}

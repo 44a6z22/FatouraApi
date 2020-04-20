@@ -15,11 +15,11 @@ class CreateDevisTable extends Migration
     {
         Schema::create('devis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('duree_validité');
+            $table->integer('duree_validite');
             $table->timestamps();
         });
     }
-    
+
 
     /**
      * Reverse the migrations.

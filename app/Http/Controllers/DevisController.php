@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Devis;
+use App\Http\Resources\DevisResource;
+use App\Reglement;
 use Illuminate\Http\Request;
 
 class DevisController extends Controller
@@ -15,8 +17,8 @@ class DevisController extends Controller
     public function index()
     {
         //
-        $devis=Devis::all();
-        return $devis;    
+        $devis = Devis::all();
+        return DevisResource::collection($devis);
     }
 
     /**
@@ -37,11 +39,19 @@ class DevisController extends Controller
      */
     public function store(Request $request)
     {
-       // 
-        $devis=new Devis();
-        $devis->duree_validité=$request->input('duree_validité');
+        // 
+        $devis = new Devis();
+        $devis->duree_validite = $request->input('duree_validite');
         $devis->save();
-        return $devis;
+
+        $reglement = new Reglement();
+        $reglement->condition_reglement_id = $request->reglement["condition_id"];
+        $reglement->mode_reglement_id = $request->reglement['mode_id'];
+        $reglement->interet_retard_id = $request->reglement['interet_id'];
+        $reglement->devis_id = $devis->id;
+        $reglement->save();
+
+        return new DevisResource($devis);
     }
 
     /**
@@ -53,6 +63,7 @@ class DevisController extends Controller
     public function show($id)
     {
         //
+        new DevisResource(Devis::find($id)->first());
     }
 
     /**
@@ -76,8 +87,8 @@ class DevisController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $devis=Devis::find($id);
-        $devis->duree_validité=$request->input('duree_validité');
+        $devis = Devis::find($id);
+        $devis->duree_validité = $request->input('duree_validité');
         $devis->save();
         return $devis;
     }
@@ -91,7 +102,7 @@ class DevisController extends Controller
     public function destroy($id)
     {
         //
-        $devis=Devis::find($id);
+        $devis = Devis::find($id);
         $devis->delete();
         return ["deleted with success"];
     }
