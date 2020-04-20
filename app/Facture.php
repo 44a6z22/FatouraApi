@@ -11,4 +11,24 @@ class Facture extends Model
     {
         return $this->hasOne('App\Reglement', 'facture_id');
     }
+    public function  articles(){
+        return $this->hasMany('App\Article');
+    }
+    public function  text_Document(){
+        return $this->belongsTo('App\Text_Document');
+    }
+    public function  statut(){
+        return $this->belongsTo('App\Status');
+    }
+
+    public function  client(){
+        return $this->belongsTo('App\Client');
+    }
+    public function  societe(){
+        return $this->belongsTo('App\Societe');
+    }
+    public function  user(){
+        return $this->belongsTo('App\User');
+    }
+
 }

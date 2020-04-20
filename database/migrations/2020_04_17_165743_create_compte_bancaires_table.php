@@ -15,6 +15,10 @@ class CreateCompteBancairesTable extends Migration
     {
         Schema::create('compte_bancaires', function (Blueprint $table) {
             $table->bigIncrements('id');
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->text('IBAN');
             $table->text('BIC');
             $table->text('Titulaire');
