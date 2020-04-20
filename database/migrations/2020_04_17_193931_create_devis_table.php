@@ -19,6 +19,9 @@ class CreateDevisTable extends Migration
             $table->unsignedBigInteger('textDocument_id');
             $table->foreign('textDocument_id')->references('id')->on('text__documents');
 
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
+
 
 
             $table->integer('duree_validité');

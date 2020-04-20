@@ -17,4 +17,7 @@ class Facture extends Model
     public function  text_Document(){
         return $this->belongsTo('App\Text_Document');
     }
+    public function  statut(){
+        return $this->belongsTo('App\Status');
+    }
 }
