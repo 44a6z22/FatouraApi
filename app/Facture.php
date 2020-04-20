@@ -11,4 +11,7 @@ class Facture extends Model
     {
         return $this->hasOne('App\Reglement', 'facture_id');
     }
+    public function  articles(){
+        return $this->hasMany('App\Article');
+    }
 }
