@@ -11,4 +11,8 @@ class Compte_bancaire extends Model
         return $this->hasMany('App\Reglement');
     }
 
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
 }

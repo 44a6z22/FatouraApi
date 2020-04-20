@@ -26,4 +26,11 @@ class Societe extends Model
     {
         return $this->hasMany('App\Devis');
     }
+    public function factures()
+    {
+        return $this->hasMany('App\Facture');
+    }
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

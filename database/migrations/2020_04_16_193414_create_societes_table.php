@@ -15,6 +15,10 @@ class CreateSocietesTable extends Migration
     {
         Schema::create('societes', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->text('Societe_identifiant_fiscale');
             $table->text('Societe_identifiant_commun_entreprise');
             $table->text('Societe_Nom');
