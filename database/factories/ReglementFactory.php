@@ -13,7 +13,7 @@ $factory->define(Reglement::class, function (Faker $faker) {
         'condition_reglement_id' => $faker->numberBetween(1, 10),
         'interet_retard_id' => $faker->numberBetween(1, 10),
         'compte_bancaire_id' => null,
-        'facture_id' => $faker->unique()->numberBetween(1, 10),
+        'facture_id' => $faker->numberBetween(1, 10),
         'devis_id' => null,
     ];
 });

@@ -1,0 +1,13 @@
+@BaseUri = http://127.0.0.1:8000/api 
+@Controller = type_articles
+
+
+POST {{BaseUri}}/{{Controller}}
+Content-Type: application/json
+
+{
+    "article_type_value": "2 Type",
+    "article_type_value_eng" : "2 Type"
+}
+####
+ GET {{BaseUri}}/{{Controller}}

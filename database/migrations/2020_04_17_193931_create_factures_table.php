@@ -14,7 +14,27 @@ class CreateFacturesTable extends Migration
     public function up()
     {
         Schema::create('factures', function (Blueprint $table) {
-            $table->bigIncrements('id');	
+            $table->bigIncrements('id');
+
+            $table->unsignedBigInteger('textDocument_id');
+            $table->foreign('textDocument_id')->references('id')->on('text__documents');
+
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
+
+            $table->unsignedBigInteger('client_id')->nullable();
+            $table->foreign('client_id')->references('id')->on('clients');
+
+            $table->unsignedBigInteger('societe_id')->nullable();
+            $table->foreign('societe_id')->references('id')->on('societes');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+
+
+
+
             $table->timestamps();
         });
     }

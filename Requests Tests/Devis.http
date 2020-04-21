@@ -15,11 +15,59 @@ GET {{BaseUri}}/{{Controller}}/{{id}}
 POST {{BaseUri}}/{{Controller}}
 Content-Type: application/json
 
+
 {
-    "duree_validite": 3,
+    "user_id" : 1, 
+    "client_id" : null , 
+    "societe_id" : 1,
+    "status_id" : 1,
+    "duree_validite" : 2,
     "reglement" : {
         "condition_id" : 3, 
         "mode_id" : 1, 
-        "interet_id": 3
+        "interet_id" : 3, 
+        "compte_bancaire" : 1
+    }, 
+    "article": [
+        {
+        "type_id" : 1, 
+        "quantité" : 2 ,
+        "prix_ht" : 39 , 
+        "tva" : 20, 
+        "reduction"  : 0 , 
+        "total_ht"  : 78 , 
+        "total_ttc" : 93 , 
+        "description": "ddd"
+    },  
+    {
+        "type_id" : 2, 
+        "quantité" : 2 ,
+        "prix_ht" : 99 , 
+        "tva" : 20, 
+        "reduction"  : 0 , 
+        "total_ht"  : 78 , 
+        "total_ttc" : 93 , 
+        "description": "ddd"
     }
+    ], 
+    "textDocument" : {
+        "introduction" : "intro", 
+        "conclusion" : "conclusion", 
+        "pied_page" : "footer", 
+        "condition" : null
+    }, 
+    "motCles" : [
+        {
+            "mot_de_value": "LLL"
+        },
+        {    
+            "mot_de_value": "LLL"
+        },
+        {
+            "mot_de_value": "LLL"
+        },
+        {
+            "mot_de_value": "LLL"
+        }
+    ] 
 }

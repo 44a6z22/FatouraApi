@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Devis;
 use App\Http\Resources\DevisResource;
 use App\Reglement;
+use App\Text_Document;
 use Illuminate\Http\Request;
 
 class DevisController extends Controller
@@ -40,16 +41,28 @@ class DevisController extends Controller
     public function store(Request $request)
     {
         // 
-        $devis = new Devis();
-        $devis->duree_validite = $request->input('duree_validite');
-        $devis->save();
+        // add a new  text Document
+        $text = new Text_Document();
+        $text->store($request);
 
-        $reglement = new Reglement();
-        $reglement->condition_reglement_id = $request->reglement["condition_id"];
-        $reglement->mode_reglement_id = $request->reglement['mode_id'];
-        $reglement->interet_retard_id = $request->reglement['interet_id'];
-        $reglement->devis_id = $devis->id;
-        $reglement->save();
+        // add a new Facture
+        $devis = new Devis();
+        $devis->store($request, $text->id);
+
+        // add new Reglement
+        $Reglement = new Reglement();
+        $Reglement->store($request, null, $devis->id);
+
+        // add a new Article
+
+        $article = new Article();
+        $article->store($request, null, $devis->id);
+
+        // add new keywords 
+        foreach ($request->motCles as $kwd) {
+            $keyword = new MotCle();
+            $keyword->store($kwd["mot_de_value"], $request->client_id, $request->societe_id);
+        }
 
         return new DevisResource($devis);
     }

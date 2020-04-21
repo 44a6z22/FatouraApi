@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Facture;
+use App\Article;
 use App\Http\Resources\FactureResource;
+use App\MotCle;
 use App\Reglement;
+use App\Text_Document;
 use Illuminate\Http\Request;
 
 class FactureController extends Controller
@@ -16,10 +19,11 @@ class FactureController extends Controller
      */
     public function index()
     {
-        //
+
         return [
             "factures" => FactureResource::collection(Facture::all())
         ];
+        // return Facture::all();
     }
 
     /**
@@ -40,24 +44,39 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
-        // //
-        $request->validate([
-            "reglement" => 'required',
-        ]);
+        // $request->validate([
+        //     "used_id" => "required",
+        //     "Client_id" => "required",
+        //     "societe_id" => "required",
+        //     "status_id" => "required",
+        //     "reglement" => "required",
+        //     "article" => "required",
+        //     "textDocument" => "required",
+        //     "motCles" => "required"
+        // ]);
 
 
-        // dd($request);
+        // add a new  text Document
+        $text = new Text_Document();
+        $text->store($request->textDocument);
+
+        // add a new Facture
         $facture = new Facture();
-        $facture->save();
+        $facture->store($request, $text->id);
 
+        // add new Reglement
         $Reglement = new Reglement();
-        $Reglement->condition_reglement_id = $request->reglement["condition_id"];
-        $Reglement->mode_reglement_id = $request->reglement['mode_id'];
-        $Reglement->interet_retard_id = $request->reglement['interet_id'];
-        $Reglement->facture_id = $facture->id;
+        $Reglement->store($request->reglement, $facture->id, null);
 
-        if (!$Reglement->save()) {
-            $facture->delete();
+        // add a new Article
+        foreach ($request->articles as $newArticles) {
+            $article = new Article();
+            $article->store($newArticles, $facture->id, null);
+        }
+        // add new keywords 
+        foreach ($request->motCles as $kwd) {
+            $keyword = new MotCle();
+            $keyword->store($kwd["mot_de_value"], $request->client_id, $request->societe_id);
         }
 
         return $facture;
@@ -69,10 +88,10 @@ class FactureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Facture $facture)
     {
         //
-        return new FactureResource(Facture::find($id));
+        return new FactureResource($facture);
     }
 
     /**

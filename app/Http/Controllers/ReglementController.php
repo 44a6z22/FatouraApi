@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Compte_bancaire;
 use App\Condition_reglement;
+use App\Http\Resources\ReglementResource;
 use App\Interet_retard;
 use App\Mode_reglement;
 use App\Reglement;
 use Illuminate\Http\Request;
-    
+
 class ReglementController extends Controller
 {
     /**
@@ -19,25 +20,9 @@ class ReglementController extends Controller
     public function index()
     {
         //
-        $mode_reg=Mode_reglement::all();
-        $condition_reg=Condition_reglement::all();
-        $interet_ret=Interet_retard::all();
-        $compte_bancaire= Compte_bancaire::all();
 
 
-
-        return [
-
-            
-            ["mode de reglement" , $mode_reg],
-            ["condition de reglement" , $condition_reg],
-            ["interet de retard" , $interet_ret],
-            ["Compte Bancaire" , $compte_bancaire]
-
-
-        
-        ];
-
+        return ReglementResource::collection(Reglement::all());
     }
 
     /**
@@ -61,7 +46,7 @@ class ReglementController extends Controller
         //
 
 
-    
+
 
     }
 
@@ -71,9 +56,10 @@ class ReglementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Reglement $reglement)
     {
         //
+        return new ReglementResource($reglement)
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Reglement extends Model
 {
@@ -34,5 +35,19 @@ class Reglement extends Model
     public function  facture()
     {
         return $this->belongsTo('App\Facture');
+    }
+
+
+
+
+
+    public function store($reglement, $facureId = null, $devisId = null)
+    {
+        $this->condition_reglement_id = $reglement["condition_id"];
+        $this->mode_reglement_id = $reglement['mode_id'];
+        $this->interet_retard_id = $reglement['interet_id'];
+        $this->compte_bancaire_id = $reglement['compte_bancaire'];
+        $this->facture_id = $facureId;
+        $this->save();
     }
 }

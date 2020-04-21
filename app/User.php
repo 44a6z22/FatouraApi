@@ -2,38 +2,38 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    //
+    public function Clients()
+    {
+        return $this->hasMany('App\Client');
+    }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function users()
+    {
+        return $this->hasMany('App\Societe');
+    }
+    public function factures()
+    {
+        return $this->hasMany('App\Facture');
+    }
+    public function comptesBancaires()
+    {
+        return $this->hasMany('App\Compte_bancaire');
+    }
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+    public function parameteres()
+    {
+        return $this->hasMany('App\Parameter');
+    }
+    public function devises()
+    {
+        return $this->hasMany('App\Devis');
+    }
 }
