@@ -16,8 +16,8 @@ class CreateFacturesTable extends Migration
         Schema::create('factures', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('textDocument_id');
-            $table->foreign('textDocument_id')->references('id')->on('text__documents');
+            $table->unsignedBigInteger('text_document_id');
+            $table->foreign('text_document_id')->references('id')->on('text_documents')->onDelete('cascade');
 
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');

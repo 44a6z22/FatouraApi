@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Devis;
 use App\Http\Resources\DevisResource;
+use App\MotCle;
 use App\Reglement;
 use App\Text_Document;
 use Illuminate\Http\Request;
@@ -43,21 +45,20 @@ class DevisController extends Controller
         // 
         // add a new  text Document
         $text = new Text_Document();
-        $text->store($request);
+        $text->store($request->textDocument);
 
         // add a new Facture
         $devis = new Devis();
         $devis->store($request, $text->id);
 
-        // add new Reglement
         $Reglement = new Reglement();
-        $Reglement->store($request, null, $devis->id);
+        $Reglement->store($request->reglement, null, $devis->id);
 
         // add a new Article
-
-        $article = new Article();
-        $article->store($request, null, $devis->id);
-
+        foreach ($request->articles as $newArticles) {
+            $article = new Article();
+            $article->store($newArticles, null, $devis->id);
+        }
         // add new keywords 
         foreach ($request->motCles as $kwd) {
             $keyword = new MotCle();
@@ -76,7 +77,7 @@ class DevisController extends Controller
     public function show($id)
     {
         //
-        new DevisResource(Devis::find($id)->first());
+        return new DevisResource(Devis::find($id));
     }
 
     /**

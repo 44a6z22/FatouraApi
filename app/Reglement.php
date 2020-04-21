@@ -48,6 +48,7 @@ class Reglement extends Model
         $this->interet_retard_id = $reglement['interet_id'];
         $this->compte_bancaire_id = $reglement['compte_bancaire'];
         $this->facture_id = $facureId;
+        $this->devis_id = $devisId;
         $this->save();
     }
 }

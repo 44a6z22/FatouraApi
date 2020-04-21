@@ -13,6 +13,6 @@ $factory->define(Facture::class, function (Faker $faker) {
         "client_id" => $faker->numberBetween(1, 10),
         "user_id" => $faker->numberBetween(1, 10),
         "societe_id" => null,
-        "textDocument_id" => factory(App\Text_Document::class)
+        "text_document_id" => factory(App\Text_Document::class)
     ];
 });

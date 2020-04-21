@@ -16,8 +16,8 @@ class CreateDevisTable extends Migration
         Schema::create('devis', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('textDocument_id');
-            $table->foreign('textDocument_id')->references('id')->on('text__documents');
+            $table->unsignedBigInteger('text_document_id');
+            $table->foreign('text_document_id')->references('id')->on('text_documents');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

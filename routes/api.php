@@ -21,7 +21,7 @@ Route::resource('/interet_retard', "InteretRetardController");
 Route::resource('/compte_bancaire', "CompteBancaireController");
 Route::resource('/devis', "DevisController");
 Route::resource('/factures', "FactureController");
-Route::resource('/article', "ArticleController");
+Route::resource('/articles', "ArticleController");
 Route::resource('/type_articles', "TypeArticlesController");
 
 

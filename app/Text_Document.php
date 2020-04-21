@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Text_Document extends Model
 {
+    public $table = "text_documents";
     //
     public function factures()
     {

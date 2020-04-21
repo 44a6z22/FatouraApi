@@ -13,7 +13,7 @@ class CreateTextDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('text__documents', function (Blueprint $table) {
+        Schema::create('text_documents', function (Blueprint $table) {
             $table->id();
             $table->text('Introduction');
             $table->text('Conclusion');

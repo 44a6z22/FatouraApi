@@ -16,7 +16,12 @@ class FactureResource extends JsonResource
     {
         return [
             "Facture_id" => $this->id,
-            "Reglement" => new ReglementResource($this->reglements)
+            "User_id" =>  $this->user_id,
+            "Statut_id" => $this->status_id,
+
+            "Reglement" => new ReglementResource($this->reglements),
+            "Artiles" => ArticleResource::collection($this->articles),
+            "Text_Document" => new TextDocumentResource($this->textDocument)
         ];
     }
 }

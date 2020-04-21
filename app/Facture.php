@@ -16,7 +16,7 @@ class Facture extends Model
     {
         return $this->hasMany('App\Article');
     }
-    public function  text_Document()
+    public function  textDocument()
     {
         return $this->belongsTo('App\Text_Document');
     }
@@ -42,7 +42,7 @@ class Facture extends Model
     {
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;
-        $this->textDocument_id = $textId;
+        $this->text_document_id = $textId;
         $this->user_id = $request->user_id;
         $this->status_id = $request->status_id;
         $this->save();
