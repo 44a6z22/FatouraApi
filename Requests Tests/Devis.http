@@ -55,7 +55,7 @@ Content-Type: application/json
         "introduction" : "intro", 
         "conclusion" : "conclusion", 
         "pied_page" : "footer", 
-        "condition" : "this type of conditions"
+        "condition" : "this type of conditions  "
     }, 
     "motCles" : [
         {

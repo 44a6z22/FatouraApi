@@ -1,6 +1,9 @@
 @BaseUri = http://127.0.0.1:8000/api 
+
 @Controller = factures
+
 @id = 11
+
 
 ###
 GET {{BaseUri}}/{{Controller}}
@@ -33,6 +36,15 @@ Content-Type: application/json
         "total_ht"  : 78 , 
         "total_ttc" : 93 , 
         "description": "ddd"
+    }, {
+        "type_id" : 1, 
+        "quantité" : 2 ,
+        "prix_ht" : 39 , 
+        "tva" : 20, 
+        "reduction"  : 0 , 
+        "total_ht"  : 78 , 
+        "total_ttc" : 93 , 
+        "description": "ddd"
     }
     ], 
     "textDocument" : {
@@ -55,7 +67,7 @@ Content-Type: application/json
             "mot_de_value": "LLL"
         }
     ] 
-    }
+}
 
 ### 
 DELETE  {{BaseUri}}/{{Controller}}/{{id}}
