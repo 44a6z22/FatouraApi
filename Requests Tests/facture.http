@@ -36,16 +36,17 @@ Content-Type: application/json
         "total_ht"  : 78 , 
         "total_ttc" : 93 , 
         "description": "ddd"
-    }, {
-        "type_id" : 1, 
-        "quantité" : 2 ,
-        "prix_ht" : 39 , 
-        "tva" : 20, 
-        "reduction"  : 0 , 
-        "total_ht"  : 78 , 
-        "total_ttc" : 93 , 
-        "description": "ddd"
-    }
+        }, 
+        {
+            "type_id" : 1, 
+            "quantité" : 2 ,
+            "prix_ht" : 39 , 
+            "tva" : 20, 
+            "reduction"  : 0 , 
+            "total_ht"  : 78 , 
+            "total_ttc" : 93 , 
+            "description": "ddd"
+        }
     ], 
     "textDocument" : {
         "introduction" : "intro", 
@@ -66,6 +67,7 @@ Content-Type: application/json
         {
             "mot_de_value": "LLL"
         }
+    
     ] 
 }
 
