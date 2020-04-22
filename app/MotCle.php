@@ -36,10 +36,10 @@ class MotCle extends Model
 
 
 
-    public function store($value, $clientId = null, $societeId = null)
+    public function store($value, $userId = null)
     {
-        $this->client_id = $clientId;
-        $this->societe_id = $societeId;
+        $this->user_id = $userId;
+        // $this->societe_id = $societeId;
         $this->mot_de_value =  $value;
         $this->save();
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Facture;
 use App\Article;
+use App\FactureMotCle;
 use App\Http\Resources\FactureResource;
 use App\MotCle;
 use App\Reglement;
@@ -69,16 +70,22 @@ class FactureController extends Controller
         $Reglement->store($request->reglement, $facture->id, null);
 
         // add a new Article
+
         foreach ($request->articles as $newArticles) {
             $article = new Article();
             $article->store($newArticles, $facture->id, null);
         }
-        // add new keywords 
+
+        // add new keywords
         foreach ($request->motCles as $kwd) {
             $keyword = new MotCle();
-            $keyword->store($kwd["mot_de_value"], $request->client_id, $request->societe_id);
-        }
+            $keyword->store($kwd["mot_de_value"], $request->user_id);
 
+            $factureMotCle = new FactureMotCle();
+            $factureMotCle->facture_id = $facture->id;
+            $factureMotCle->mot_cle_id = $keyword->id;
+            $factureMotCle->save();
+        }
         return $facture;
     }
 

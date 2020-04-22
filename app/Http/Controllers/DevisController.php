@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Devis;
+use App\DevisMotCle;
+use App\FactureMotCle;
 use App\Http\Resources\DevisResource;
 use App\MotCle;
 use App\Reglement;
@@ -59,10 +61,15 @@ class DevisController extends Controller
             $article = new Article();
             $article->store($newArticles, null, $devis->id);
         }
-        // add new keywords 
+        // add new keywords
         foreach ($request->motCles as $kwd) {
             $keyword = new MotCle();
-            $keyword->store($kwd["mot_de_value"], $request->client_id, $request->societe_id);
+            $keyword->store($kwd["mot_de_value"], $request->user_id);
+
+            $factureMotCle = new DevisMotCle();
+            $factureMotCle->devis_id = $devis->id;
+            $factureMotCle->mot_cle_id = $keyword->id;
+            $factureMotCle->save();
         }
 
         return new DevisResource($devis);
