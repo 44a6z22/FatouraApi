@@ -9,13 +9,29 @@ class MotCle extends Model
 {
     public $table = "mot_clés";
     //
-    public function  client()
+    public function  clients()
     {
-        return $this->belongsTo('App\Client');
+        return $this->belongsToMany('App\Client');
     }
-    public function  societe()
+
+    public function  societes()
     {
-        return $this->belongsTo('App\Societe');
+        return $this->belongsToMany('App\Societe');
+    }
+
+    public function factures()
+    {
+        return $this->belongsToMany(Facture::class);
+    }
+
+    public function devis()
+    {
+        return $this->belongsToMany(Devis::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 

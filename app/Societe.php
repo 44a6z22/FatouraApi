@@ -35,4 +35,12 @@ class Societe extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+
+
+
+    public function mot_cles()
+    {
+        return $this->belongsToMany(MotCle::class);
+    }
 }

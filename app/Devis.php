@@ -38,7 +38,10 @@ class Devis extends Model
     }
 
 
-
+    public function mot_cles()
+    {
+        return $this->belongsToMany(MotCle::class);
+    }
     public function store(Request $request, $textId)
     {
         $this->duree_validité = $request->duree_validite;

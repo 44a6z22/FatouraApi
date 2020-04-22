@@ -36,4 +36,9 @@ class User extends Model
     {
         return $this->hasMany('App\Devis');
     }
+
+    public function mot_cles()
+    {
+        return $this->hasMany(MotCle::class);
+    }
 }

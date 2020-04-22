@@ -38,6 +38,12 @@ class Facture extends Model
         return $this->belongsTo('App\User');
     }
 
+
+    public function mot_cles()
+    {
+        return $this->belongsToMany(MotCle::class);
+    }
+
     public function store(Request $request, $textId)
     {
         $this->client_id = $request->client_id;

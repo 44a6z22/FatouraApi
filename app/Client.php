@@ -38,4 +38,12 @@ class Client extends Model
     {
         return $this->belongsTo('App\Societe');
     }
+
+
+
+
+    public function mot_cles()
+    {
+        return $this->belongsToMany(MotCle::class);
+    }
 }

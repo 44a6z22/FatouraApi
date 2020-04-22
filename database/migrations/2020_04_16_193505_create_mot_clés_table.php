@@ -15,16 +15,10 @@ class CreateMotClésTable extends Migration
     {
         Schema::create('mot_clés', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('client_id')->nullable();
-            $table->foreign('client_id')->references('id')->on('clients');
-
-            $table->unsignedBigInteger('societe_id')->nullable();
-            $table->foreign('societe_id')->references('id')->on('societes');
-
-
+            $table->unsignedBigInteger("user_id")->nullable()->default(1);
             $table->text('Mot_de_value');
             $table->timestamps();
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
         });
     }
 
