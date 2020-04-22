@@ -63,10 +63,19 @@ class DevisController extends Controller
         }
         // add new keywords
         foreach ($request->motCles as $kwd) {
-            $keyword = new MotCle();
-            $keyword->store($kwd["mot_de_value"], $request->user_id);
+            // a keyword already exist ? 
+            // don't add it again to the keyword table.
 
-            $factureMotCle = new DevisMotCle();
+            $keyword = new MotCle();;
+
+            if ($keyword->isExist($kwd["mot_de_value"]) == null) {
+                $keyword->store($kwd["mot_de_value"], $request->user_id);
+            } else {
+                $keyword = MotCle::where('Mot_de_value', $kwd['mot_de_value'])->first();
+            }
+
+
+            $factureMotCle = new FactureMotCle();
             $factureMotCle->devis_id = $devis->id;
             $factureMotCle->mot_cle_id = $keyword->id;
             $factureMotCle->save();

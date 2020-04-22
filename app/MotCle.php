@@ -43,4 +43,10 @@ class MotCle extends Model
         $this->mot_de_value =  $value;
         $this->save();
     }
+
+    public function isExist($value)
+    {
+        // $this->id = $this::where("Mot_de_value", $value)->first()->id;
+        return $this::where('Mot_de_value', $value)->first();
+    }
 }
