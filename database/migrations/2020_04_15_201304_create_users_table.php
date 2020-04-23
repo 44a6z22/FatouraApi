@@ -28,6 +28,10 @@ class CreateUsersTable extends Migration
             $table->integer('User_Code_Postal');
             $table->text('User_Ville');
             $table->text('User_Site_Internet');
+
+
+
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

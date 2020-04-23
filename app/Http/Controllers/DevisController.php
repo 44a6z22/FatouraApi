@@ -22,7 +22,7 @@ class DevisController extends Controller
     public function index()
     {
         //
-        $devis = Devis::all();
+        $devis = Devis::all()->where('is_deleted', false);
         return DevisResource::collection($devis);
     }
 
@@ -61,24 +61,19 @@ class DevisController extends Controller
             $article = new Article();
             $article->store($newArticles, null, $devis->id);
         }
+
         // add new keywords
+        $kwds = [];
         foreach ($request->motCles as $kwd) {
             // a keyword already exist ? 
             // don't add it again to the keyword table.
+            if (!in_array($kwd['value'], $kwds)) {
 
-            $keyword = new MotCle();;
-
-            if ($keyword->isExist($kwd["mot_de_value"]) == null) {
-                $keyword->store($kwd["mot_de_value"], $request->user_id);
-            } else {
-                $keyword = MotCle::where('Mot_de_value', $kwd['mot_de_value'])->first();
+                array_push($kwds, $kwd['value']);
+                $keyword = MotCle::makeIfNotExist($kwd['value'], $request->user_id);
+                $devisMotCle = new DevisMotCle();
+                $devisMotCle->store($devis->id, $keyword->id);
             }
-
-
-            $factureMotCle = new FactureMotCle();
-            $factureMotCle->devis_id = $devis->id;
-            $factureMotCle->mot_cle_id = $keyword->id;
-            $factureMotCle->save();
         }
 
         return new DevisResource($devis);
@@ -92,8 +87,13 @@ class DevisController extends Controller
      */
     public function show($id)
     {
-        //
-        return new DevisResource(Devis::find($id));
+        $devis = Devis::find($id);
+
+        if ($devis->is_deleted) {
+            abort(404);
+        }
+
+        return new DevisResource($devis);
     }
 
     /**
@@ -133,7 +133,8 @@ class DevisController extends Controller
     {
         //
         $devis = Devis::find($id);
-        $devis->delete();
+        $devis->remove();
+
         return ["deleted with success"];
     }
 }

@@ -31,6 +31,7 @@ class CreateClientsTable extends Migration
             $table->text('Client_Fonction');
             $table->text('Client_SiteInternet');
             $table->text('Client_Note');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

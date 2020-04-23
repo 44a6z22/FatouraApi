@@ -20,7 +20,7 @@ class SocieteController extends Controller
     public function index()
     {
         //
-        return SocieteResource::collection(Societe::all());
+        return SocieteResource::collection(Societe::all()->where("is_deleted", false));
     }
 
 
@@ -86,6 +86,9 @@ class SocieteController extends Controller
     public function show(Societe $societe)
     {
         //
+        if ($societe->is_deleted) {
+            abort(404);
+        }
         return new SocieteResource($societe);
     }
 
@@ -121,6 +124,7 @@ class SocieteController extends Controller
     public function destroy(Societe $societe)
     {
         //
-        Societe::destroy($societe->id);
+        // Societe::destroy($societe->id);
+        $societe->remove();
     }
 }

@@ -7,6 +7,8 @@
 
 
 
+GET {{BaseUri}}/{{Controller}}
+###
 POST {{BaseUri}}/{{Controller}}
 Content-Type: application/json
 

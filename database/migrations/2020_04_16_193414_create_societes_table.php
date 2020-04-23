@@ -27,6 +27,9 @@ class CreateSocietesTable extends Migration
             $table->text('Societe_Note');
             $table->text('Societe_Ville');
             $table->text('Societe_Site_Internet');
+
+
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

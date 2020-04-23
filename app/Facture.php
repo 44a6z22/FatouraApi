@@ -53,4 +53,9 @@ class Facture extends Model
         $this->status_id = $request->status_id;
         $this->save();
     }
+    public function remove()
+    {
+        $this->is_deleted = true;
+        $this->save();
+    }
 }

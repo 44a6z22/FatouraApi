@@ -8,6 +8,7 @@ use App\ClientMotCle;
 use App\Http\Resources\ClientResource;
 use App\MotCle;
 use App\Numtele;
+use Exception;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -20,7 +21,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        return ClientResource::collection(Client::all());
+        return ClientResource::collection(Client::all()->where('is_deleted', false));
     }
 
     /**
@@ -88,6 +89,9 @@ class ClientController extends Controller
     public function show(Client $client)
     {
         //
+        if ($client->is_deleted) {
+            abort(404);
+        }
         return new ClientResource($client);
     }
 
@@ -122,6 +126,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        Client::destroy($client->id);
+        $client->remove();
     }
 }

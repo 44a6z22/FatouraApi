@@ -22,7 +22,7 @@ class FactureController extends Controller
     {
 
         return [
-            "factures" => FactureResource::collection(Facture::all())
+            "factures" => FactureResource::collection(Facture::all()->where('is_deleted', false))
         ];
         // return Facture::all();
     }
@@ -77,24 +77,19 @@ class FactureController extends Controller
         }
 
         // add new keywords
+        $kwds = [];
         foreach ($request->motCles as $kwd) {
 
             // a keyword already exist ? 
             // don't add it again to the keyword table.
 
-            $keyword = new MotCle();;
+            if (!in_array($kwd['value'], $kwds)) {
 
-            if ($keyword->isExist($kwd["mot_de_value"]) == null) {
-                $keyword->store($kwd["mot_de_value"], $request->user_id);
-            } else {
-                $keyword = MotCle::where('Mot_de_value', $kwd['mot_de_value'])->first();
+                array_push($kwds, $kwd['value']);
+                $keyword = MotCle::makeIfNotExist($kwd['value'], $request->user_id);
+                $factureMotCle = new FactureMotCle();
+                $factureMotCle->store($facture->id, $keyword->id);
             }
-
-
-            $factureMotCle = new FactureMotCle();
-            $factureMotCle->facture_id = $facture->id;
-            $factureMotCle->mot_cle_id = $keyword->id;
-            $factureMotCle->save();
         }
         return $facture;
     }
@@ -108,6 +103,10 @@ class FactureController extends Controller
     public function show(Facture $facture)
     {
         //
+        if ($facture->is_deleted) {
+            abort(404);
+        }
+
         return new FactureResource($facture);
     }
 
@@ -148,6 +147,6 @@ class FactureController extends Controller
     {
         //
         $facture = Facture::find($id);
-        $facture->delete();
+        $facture->remove();
     }
 }

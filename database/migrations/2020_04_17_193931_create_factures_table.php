@@ -34,6 +34,7 @@ class CreateFacturesTable extends Migration
 
 
 
+            $table->boolean('is_deleted')->default(false);
 
             $table->timestamps();
         });

@@ -42,6 +42,10 @@ class Devis extends Model
     {
         return $this->belongsToMany(MotCle::class);
     }
+
+
+
+
     public function store(Request $request, $textId)
     {
         $this->duree_validité = $request->duree_validite;
@@ -51,6 +55,11 @@ class Devis extends Model
         $this->user_id = $request->user_id;
         $this->status_id = $request->status_id;
 
+        $this->save();
+    }
+    public function remove()
+    {
+        $this->is_deleted = true;
         $this->save();
     }
 }

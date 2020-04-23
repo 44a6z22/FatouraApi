@@ -18,8 +18,7 @@ class TextDocumentResource extends JsonResource
             "introduction" => $this->Introduction,
             "Conclusion" => $this->Conclusion,
             "footer" => $this->Pied_page,
-            "condition" => $this->Condition_general,
-
+            "condition" => $this->Condition_general
         ];
     }
 }

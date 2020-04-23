@@ -46,6 +46,7 @@ class Societe extends Model
     }
 
 
+
     public function store(Request $request)
     {
         $this->user_id = $request->user_id;
@@ -57,6 +58,12 @@ class Societe extends Model
         $this->Societe_Note = $request->Societe_Note;
         $this->Societe_Ville = $request->Societe_Ville;
         $this->Societe_Site_Internet = $request->Societe_Site_Internet;
+        $this->save();
+    }
+
+    public function remove()
+    {
+        $this->is_deleted = true;
         $this->save();
     }
 }

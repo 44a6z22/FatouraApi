@@ -20,8 +20,6 @@ class ReglementController extends Controller
     public function index()
     {
         //
-
-
         return ReglementResource::collection(Reglement::all());
     }
 
@@ -44,9 +42,6 @@ class ReglementController extends Controller
     public function store(Request $request)
     {
         //
-
-
-
 
     }
 

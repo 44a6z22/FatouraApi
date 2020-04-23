@@ -20,9 +20,9 @@ class DevisResource extends JsonResource
             "Statut_id" => $this->status_id,
             "durée_validité" => $this->duree_validité,
             "Reglement" => new ReglementResource($this->reglements),
+            "Text_Document" => new TextDocumentResource($this->textDocument),
             "Artiles" => ArticleResource::collection($this->articles),
-            "Text_Document" => new TextDocumentResource($this->textDocument)
-
+            "Keywords" => MotCleResource::collection($this->mot_cles)
         ];
     }
 }

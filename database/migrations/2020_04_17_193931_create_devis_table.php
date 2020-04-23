@@ -33,6 +33,9 @@ class CreateDevisTable extends Migration
 
 
             $table->integer('duree_validité');
+
+
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 @BaseUri = http://127.0.0.1:8000/api 
 @Controller = devis
-@id = 6
+@id = 3
 
 
 ###
@@ -59,16 +59,19 @@ Content-Type: application/json
     }, 
     "motCles" : [
         {
-            "mot_de_value": "LLL"
+            "value": "LLL"
         },
         {    
-            "mot_de_value": "LLL"
+            "value": "LLL"
         },
         {
-            "mot_de_value": "LLL"
+            "value": "LLL"
         },
         {
-            "mot_de_value": "LLL"
+            "value": "LLL"
         }
     ] 
 }
+
+
+DELETE {{BaseUri}}/{{Controller}}/{{id}}
