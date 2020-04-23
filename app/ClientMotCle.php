@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClientMotCle extends Model
 {
+    public $table = "client_mot_cle";
     //
 }

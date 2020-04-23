@@ -16,12 +16,12 @@ class CreateNumtelesTable extends Migration
         Schema::create('numteles', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->unsignedBigInteger('client_id')->nullable();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete("cascade");
 
 
-            $table->unsignedBigInteger('societe_id');
-            $table->foreign('societe_id')->references('id')->on('societes');
+            $table->unsignedBigInteger('societe_id')->nullable();
+            $table->foreign('societe_id')->references('id')->on('societes')->onDelete("cascade");
 
 
 

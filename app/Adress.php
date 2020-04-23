@@ -15,4 +15,16 @@ class Adress extends Model
     {
         return $this->belongsTo('App\Societe');
     }
+
+
+
+
+    public function store($value, $clientId = null, $societeId = null)
+    {
+
+        $this->societe_id = $societeId;
+        $this->client_id = $clientId;
+        $this->Adress_value = $value;
+        $this->save();
+    }
 }

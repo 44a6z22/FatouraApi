@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MotCleResource extends JsonResource
+class PhoneNumberResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class MotCleResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "user_id" => $this->user_id,
-            "mot_clé_value" => $this->Mot_de_value
+            "number" => $this->Num_value
         ];
     }
 }

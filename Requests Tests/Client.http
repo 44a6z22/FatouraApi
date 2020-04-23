@@ -1,0 +1,62 @@
+@BaseUri = http://127.0.0.1:8000/api 
+
+@Controller = clients
+
+@id = 4
+
+
+
+
+POST {{BaseUri}}/{{Controller}}
+Content-Type: application/json
+
+{
+	"user_id": 2,
+    "societe_id": null,
+    "Client_Nom": "Casimir O'Keefe",
+    "Client_Prenom": "zieme.kellie@example.com",
+    "Client_Ville": "South Michel",
+    "Client_Code_Postal": 2920473,
+    "Client_Pays": "Israel",
+    "Client_Fonction": "placeat",
+    "Client_SiteInternet": "Http://www.dolorem.com",
+    "Client_Note": "Voluptatibus aperiam omnis quis autem illum dignissimos veritatis.",
+	"adresses": [
+		{
+			"value" : "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+		},
+		{
+			"value" : "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+		}
+	],
+    "phones": [
+        {
+            "value" : "98374947495855"
+        },
+        {
+            "value" : "827777"
+        },
+        {
+            "value" : "938383" 
+        }
+    ],
+    "motCles" : [
+        
+        {
+            "value" : "LOL"
+        },
+        {
+            "value" : "LLL"
+        },
+        {
+            "value" : "OK"
+        }
+    ]
+}
+
+
+
+###
+
+
+DELETE {{BaseUri}}/{{Controller}}/{{id}}

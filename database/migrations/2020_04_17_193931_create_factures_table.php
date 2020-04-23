@@ -20,16 +20,16 @@ class CreateFacturesTable extends Migration
             $table->foreign('text_document_id')->references('id')->on('text_documents')->onDelete('cascade');
 
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete("cascade");
 
             $table->unsignedBigInteger('client_id')->nullable();
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete("cascade");
 
             $table->unsignedBigInteger('societe_id')->nullable();
-            $table->foreign('societe_id')->references('id')->on('societes');
+            $table->foreign('societe_id')->references('id')->on('societes')->onDelete("cascade");
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
 
 
 

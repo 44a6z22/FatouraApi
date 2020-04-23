@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MotCleResource extends JsonResource
+class AdressResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class MotCleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "user_id" => $this->user_id,
-            "mot_clé_value" => $this->Mot_de_value
+            'id' => $this->id,
+            "adress" => $this->Adress_value
         ];
     }
 }

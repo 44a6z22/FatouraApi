@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Adress;
 use App\Client;
+use App\ClientMotCle;
+use App\Http\Resources\ClientResource;
+use App\MotCle;
+use App\Numtele;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -15,6 +20,7 @@ class ClientController extends Controller
     public function index()
     {
         //
+        return ClientResource::collection(Client::all());
     }
 
     /**
@@ -35,7 +41,46 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // ddd($request);
+
+        $client = new Client();
+        $client->store($request);
+
+        // adding a client adress
+        foreach ($request->adresses as $adrs) {
+            $adress = new Adress();
+            $adress->store($adrs["value"], $client->id, null);
+        }
+
+        // adding a client phone number.
+        foreach ($request->phones as $phone) {
+            $phoneNumber = new Numtele();
+            $phoneNumber->store($phone["value"], $client->id, null);
+        }
+
+        // add new keywords
+        foreach ($request->motCles as $kwd) {
+
+            // a keyword already exist ? 
+            // don't add it again to the keyword table.
+
+            $keyword = new MotCle();
+
+            if ($keyword->isExist($kwd["value"]) == null) {
+                $keyword->store($kwd["value"], $request->user_id);
+            } else {
+                $keyword = MotCle::where('Mot_de_value', $kwd['value'])->first();
+            }
+
+
+            $factureMotCle = new ClientMotCle();
+            $factureMotCle->client_id = $client->id;
+            $factureMotCle->mot_cle_id = $keyword->id;
+            $factureMotCle->save();
+        }
+
+        return new ClientResource($client);
     }
 
     /**
@@ -47,6 +92,7 @@ class ClientController extends Controller
     public function show(Client $client)
     {
         //
+        return new ClientResource($client);
     }
 
     /**
@@ -69,7 +115,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $client->store($request);
     }
 
     /**
@@ -80,6 +126,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        Client::destroy($client->id);
     }
 }

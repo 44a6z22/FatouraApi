@@ -15,4 +15,13 @@ class Numtele extends Model
     {
         return $this->belongsTo('App\Societe');
     }
+
+    public function store($value, $clientId = null, $societeId = null)
+    {
+
+        $this->societe_id = $societeId;
+        $this->client_id = $clientId;
+        $this->Num_value = $value;
+        $this->save();
+    }
 }
