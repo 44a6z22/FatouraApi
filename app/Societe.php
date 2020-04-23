@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Societe extends Model
 {
@@ -11,7 +12,7 @@ class Societe extends Model
     {
         return $this->hasMany('App\MotCle');
     }
-    public function numTeles()
+    public function nums()
     {
         return $this->hasMany('App\Numtele');
     }
@@ -42,5 +43,20 @@ class Societe extends Model
     public function mot_cles()
     {
         return $this->belongsToMany(MotCle::class);
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->user_id = $request->user_id;
+        $this->Societe_Nom = $request->Societe_Nom;
+        $this->Societe_identifiant_fiscale = $request->Societe_identifiant_fiscale;
+        $this->Societe_identifiant_commun_entreprise = $request->Societe_identifiant_commun_entreprise;
+        $this->Societe_Taxe_Professionelle = $request->Societe_Taxe_Professionelle;
+        $this->Societe_Pays = $request->Societe_Pays;
+        $this->Societe_Note = $request->Societe_Note;
+        $this->Societe_Ville = $request->Societe_Ville;
+        $this->Societe_Site_Internet = $request->Societe_Site_Internet;
+        $this->save();
     }
 }

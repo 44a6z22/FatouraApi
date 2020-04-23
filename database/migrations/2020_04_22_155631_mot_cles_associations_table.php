@@ -57,7 +57,7 @@ class MotClesAssociationsTable extends Migration
         });
 
 
-        Schema::create('societe_mot_cle', function (Blueprint $table) {
+        Schema::create('mot_cle_societe', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('societe_id')->nullable()->default(12);

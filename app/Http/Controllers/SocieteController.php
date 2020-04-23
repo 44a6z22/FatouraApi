@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Adress;
+use App\Http\Resources\SocieteResource;
+use App\MotCle;
+use App\Numtele;
 use App\Societe;
+use App\SocieteMotCle;
 use Illuminate\Http\Request;
 
 class SocieteController extends Controller
@@ -15,7 +20,9 @@ class SocieteController extends Controller
     public function index()
     {
         //
+        return SocieteResource::collection(Societe::all());
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,6 +43,38 @@ class SocieteController extends Controller
     public function store(Request $request)
     {
         //
+
+        // add acompany . 
+        $company = new Societe();
+        $company->store($request);
+
+        // add phone numbers 
+        foreach ($request->phones as $phone) {
+            $phoneNumber = new Numtele();
+            $phoneNumber->store($phone["value"], null, $company->id);
+        }
+
+        // add Adresses 
+        foreach ($request->phones as $adress) {
+            $companyAdress = new Adress();
+            $companyAdress->store($adress["value"], null, $company->id);
+        }
+
+        // add keywords.
+        $kwds = [];
+        foreach ($request->keywords as $kwd) {
+
+            if (!in_array($kwd['value'], $kwds)) {
+
+                array_push($kwds, $kwd['value']);
+                $keywords = MotCle::makeIfNotExist($kwd['value'], $request->user_id);
+
+                $companyKeyword = new SocieteMotCle();
+                $companyKeyword->store($company->id, $keywords->id);
+            }
+        }
+
+        return $company;
     }
 
     /**
@@ -47,6 +86,7 @@ class SocieteController extends Controller
     public function show(Societe $societe)
     {
         //
+        return new SocieteResource($societe);
     }
 
     /**
@@ -81,5 +121,6 @@ class SocieteController extends Controller
     public function destroy(Societe $societe)
     {
         //
+        Societe::destroy($societe->id);
     }
 }

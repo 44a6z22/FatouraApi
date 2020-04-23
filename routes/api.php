@@ -24,6 +24,8 @@ Route::resource('/factures', "FactureController");
 Route::resource('/articles', "ArticleController");
 Route::resource('/type_articles', "TypeArticlesController");
 Route::resource("clients", "ClientController");
+Route::resource("societes", "SocieteController");
+
 
 
 

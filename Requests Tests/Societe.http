@@ -1,0 +1,59 @@
+@BaseUri = http://127.0.0.1:8000/api 
+
+@Controller = societes
+
+@id = 12
+
+
+GET {{BaseUri}}/{{Controller}}
+####
+
+DELETE {{BaseUri}}/{{Controller}}/{{id}}
+
+### 
+
+GET {{BaseUri}}/{{Controller}}/{{id}}
+
+###
+POST {{BaseUri}}/{{Controller}}
+Content-Type: application/json
+
+{
+    "user_id": 8,
+    "Societe_identifiant_fiscale": "earum",
+    "Societe_identifiant_commun_entreprise": "optio",
+    "Societe_Nom": "sssss",
+    "Societe_Taxe_Professionelle": 5,
+    "Societe_Pays": "Romania",
+    "Societe_Note": "ratione",
+    "Societe_Ville": "West Larue",
+    "Societe_Site_Internet": "http:\/\/www.aut.com",
+
+    "adresses" :[
+        {
+			"value" : "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+		},
+		{
+			"value" : "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+		}
+    ], 
+    "phones" : [
+        {
+            "value" : "98374947495855"
+        },
+        {
+            "value" : "827777"
+        },
+        {
+            "value" : "938383" 
+        }
+    ], 
+    "keywords" : [
+        {
+            "value" : "LOL"
+        },
+        {
+            "value" : "OK"
+        }
+    ]
+}

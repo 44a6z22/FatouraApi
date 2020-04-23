@@ -60,24 +60,20 @@ class ClientController extends Controller
         }
 
         // add new keywords
+
+        $kwds = [];
         foreach ($request->motCles as $kwd) {
 
-            // a keyword already exist ? 
-            // don't add it again to the keyword table.
+            if (!in_array($kwd['value'], $kwds)) {
 
-            $keyword = new MotCle();
 
-            if ($keyword->isExist($kwd["value"]) == null) {
-                $keyword->store($kwd["value"], $request->user_id);
-            } else {
-                $keyword = MotCle::where('Mot_de_value', $kwd['value'])->first();
+                // a keyword already exist ? 
+                // don't add it again to the keyword table.
+                $keyword = MotCle::makeIfNotExist($kwd["value"], $request->user_id);
+
+                $clientKeyword = new ClientMotCle();
+                $clientKeyword->store($client->id, $keyword->id);
             }
-
-
-            $factureMotCle = new ClientMotCle();
-            $factureMotCle->client_id = $client->id;
-            $factureMotCle->mot_cle_id = $keyword->id;
-            $factureMotCle->save();
         }
 
         return new ClientResource($client);

@@ -11,12 +11,12 @@ class MotCle extends Model
     //
     public function  clients()
     {
-        return $this->belongsToMany('App\Client');
+        return $this->belongsToMany(Client::class);
     }
 
     public function  societes()
     {
-        return $this->belongsToMany('App\Societe');
+        return $this->belongsToMany(Societe::class);
     }
 
     public function factures()
@@ -47,5 +47,19 @@ class MotCle extends Model
     {
         // $this->id = $this::where("Mot_de_value", $value)->first()->id;
         return $this::where('Mot_de_value', $value)->first();
+    }
+
+
+    public static function makeIfNotExist($value, $userId)
+    {
+        $keyword = new MotCle();
+
+        if ($keyword->isExist($value) == null) {
+            $keyword->store($value, $userId);
+        } else {
+            $keyword = MotCle::where('Mot_de_value', $value)->first();
+        }
+
+        return $keyword;
     }
 }
