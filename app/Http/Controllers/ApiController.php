@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use JWTAuth;
@@ -6,7 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
-class APIController extends Controller
+
+class ApiController extends Controller
 {
     /**
      * @var bool
@@ -17,7 +19,7 @@ class APIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-public function login(Request $request)
+    public function login(Request $request)
     {
         $input = $request->only('email', 'password');
         $token = null;
@@ -67,8 +69,10 @@ public function login(Request $request)
      */
     public function register(RegistrationFormRequest $request)
     {
+        // dd($request);
+
         $user = new User();
-        $user->role_id=1;
+        $user->role_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);

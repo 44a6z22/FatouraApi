@@ -149,4 +149,10 @@ class FactureController extends Controller
         $facture = Facture::find($id);
         $facture->remove();
     }
+
+
+    public function physicalDelete($id)
+    {
+        Facture::destroy($id);
+    }
 }
