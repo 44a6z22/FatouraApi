@@ -11,6 +11,7 @@ use App\MotCle;
 use App\Reglement;
 use App\Text_Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DevisController extends Controller
 {
@@ -22,8 +23,11 @@ class DevisController extends Controller
     public function index()
     {
         //
-        $devis = Devis::all()->where('is_deleted', false);
-        return DevisResource::collection($devis);
+        $devis = Devis::all()
+            ->where('is_deleted', false)
+            ->where('user_id', Auth::user()->id);
+
+        return (count($devis) != 0) ? DevisResource::collection($devis) :  abort(404);
     }
 
     /**

@@ -13,7 +13,27 @@
             <p>Invoice {{$facture->user->name}}</p>
         </div>
         <div class="col-md-6">
-            <p>Invoice {{$facture->client->Client_Nom}}</p>
+            {{-- <p>Invoice {{$facture->client->Client_Nom}}</p> --}}
         </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Prix ht</th>
+                    <th>Tva</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($facture->articles as $item)
+                <tr>
+                <td scope="row"> {{$item->quantité}}</td>
+                    <td> {{$item->prix_ht}} </td>
+                    <td> {{$item->tva}} </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

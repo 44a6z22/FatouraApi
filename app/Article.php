@@ -28,6 +28,7 @@ class Article extends Model
         $this->facture_id = $factureId;
         $this->devis_id = $devisId;
         $this->quantité = $article['quantité'];
+        $this->prix_ht = $article['prix_ht'];
         $this->tva = $article['tva'];
         $this->reduction = $article['reduction'];
         $this->total_ht = $article['total_ht'];
