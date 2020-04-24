@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/reglement',"ReglementController");
-Route::resource('/mode_reglement',"ModeReglementController");
-Route::resource('/condition_reglement',"ConditionReglementController");
-Route::resource('/interet_retard',"InteretRetardController");
-Route::resource('/compte_bancaire',"CompteBancaireController");
-Route::resource('/devis',"DevisController");
-Route::resource('/factures',"FactureController");
-Route::resource('/article',"ArticleController");
-Route::resource('/type_article',"TypArticlesController");
+// Route::resource('/reglement',"ReglementController");
+// Route::resource('/mode_reglement',"ModeReglementController");
+// Route::resource('/condition_reglement',"ConditionReglementController");
+// Route::resource('/interet_retard',"InteretRetardController");
+// Route::resource('/compte_bancaire',"CompteBancaireController");
+// Route::resource('/devis',"DevisController");
+// Route::resource('/factures',"FactureController");
+// Route::resource('/article',"ArticleController");
+// Route::resource('/type_article',"TypArticlesController");
 
 
 
@@ -32,5 +32,5 @@ Route::resource('/type_article',"TypArticlesController");
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pdf');
 });

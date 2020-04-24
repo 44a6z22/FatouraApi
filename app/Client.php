@@ -47,7 +47,7 @@ class Client extends Model
 
     public function store(Request $request)
     {
-        $this->user_id = $request->user_id;
+        $this->user_id = Auth::user()->id;
 
         $this->societe_id = $request->societe_id;
 

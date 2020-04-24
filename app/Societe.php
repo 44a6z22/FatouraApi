@@ -49,7 +49,7 @@ class Societe extends Model
 
     public function store(Request $request)
     {
-        $this->user_id = $request->user_id;
+        $this->user_id = Auth::user()->id;
         $this->Societe_Nom = $request->Societe_Nom;
         $this->Societe_identifiant_fiscale = $request->Societe_identifiant_fiscale;
         $this->Societe_identifiant_commun_entreprise = $request->Societe_identifiant_commun_entreprise;
