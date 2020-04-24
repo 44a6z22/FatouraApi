@@ -2,43 +2,96 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
-    //
-    public function Clients()
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
     {
-        return $this->hasMany('App\Client');
+        return $this->getKey();
     }
 
-    public function users()
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
     {
-        return $this->hasMany('App\Societe');
+        return [];
     }
-    public function factures()
-    {
-        return $this->hasMany('App\Facture');
-    }
-    public function comptesBancaires()
-    {
-        return $this->hasMany('App\Compte_bancaire');
-    }
-    public function role()
-    {
-        return $this->belongsTo('App\Role');
-    }
-    public function parameteres()
-    {
-        return $this->hasMany('App\Parameter');
-    }
-    public function devises()
-    {
-        return $this->hasMany('App\Devis');
-    }
+       
+   public function Clients()
+   {
+       return $this->hasMany('App\Client');
+   }
 
-    public function mot_cles()
-    {
-        return $this->hasMany(MotCle::class);
-    }
+   public function users()
+   {
+       return $this->hasMany('App\Societe');
+   }
+   public function factures()
+   {
+       return $this->hasMany('App\Facture');
+   }
+   public function comptesBancaires()
+   {
+       return $this->hasMany('App\Compte_bancaire');
+   }
+   public function role()
+   {
+       return $this->belongsTo('App\Role');
+   }
+   public function parameteres()
+   {
+       return $this->hasMany('App\Parameter');
+   }
+   public function devises()
+   {
+       return $this->hasMany('App\Devis');
+   }
+
+   public function mot_cles()
+   {
+       return $this->hasMany(MotCle::class);
+   }
 }
+
+
+

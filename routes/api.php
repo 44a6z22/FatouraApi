@@ -14,24 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/reglement', "ReglementController");
-Route::resource('/mode_reglement', "ModeReglementController");
-Route::resource('/condition_reglement', "ConditionReglementController");
-Route::resource('/interet_retard', "InteretRetardController");
-Route::resource('/compte_bancaire', "CompteBancaireController");
-Route::resource('/devis', "DevisController");
-Route::resource('/factures', "FactureController");
-Route::resource('/articles', "ArticleController");
-Route::resource('/type_articles', "TypeArticlesController");
-Route::resource("clients", "ClientController");
-Route::resource("societes", "SocieteController");
 
 
 
 
+Route::post('login', 'ApiController@login');
+Route::post('register', 'ApiController@register');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('logout', 'ApiController@logout');
+    Route::resource('/articles', "ArticleController");
+    Route::resource('/reglement', "ReglementController");
+    Route::resource('/mode_reglement', "ModeReglementController");
+    Route::resource('/condition_reglement', "ConditionReglementController");
+    Route::resource('/interet_retard', "InteretRetardController");
+    Route::resource('/compte_bancaire', "CompteBancaireController");
+    Route::resource('/devis', "DevisController");
+    Route::resource('/factures', "FactureController");
+    Route::resource('/articles', "ArticleController");
+    Route::resource('/type_articles', "TypeArticlesController");
+    Route::resource("clients", "ClientController");
+    Route::resource("societes", "SocieteController");
 
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
 });
+
+
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
