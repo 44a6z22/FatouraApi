@@ -39,10 +39,14 @@ class Facture extends Model
         return $this->belongsTo('App\User');
     }
 
-
     public function mot_cles()
     {
         return $this->belongsToMany(MotCle::class);
+    }
+
+    public function facture_type()
+    {
+        return $this->belongsTo(FactureType::class);
     }
 
     public function store(Request $request, $textId)
@@ -52,6 +56,8 @@ class Facture extends Model
         $this->text_document_id = $textId;
         $this->user_id = Auth::user()->id;
         $this->status_id = $request->status_id;
+        $this->payed_at = null;
+        $this->facture_type_id = $request->facture_type_id;
         $this->save();
     }
     public function remove()

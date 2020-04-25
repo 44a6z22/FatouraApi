@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
     Route::resource("societes", "SocieteController");
+    Route::Resource("/facture-acompte", "FactureAcompteController");
 
     Route::Delete("factures/delete/physical/{id}", "FactureController@physicalDelete");
 

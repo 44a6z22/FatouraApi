@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -56,42 +57,44 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-       
-   public function Clients()
-   {
-       return $this->hasMany('App\Client');
-   }
 
-   public function users()
-   {
-       return $this->hasMany('App\Societe');
-   }
-   public function factures()
-   {
-       return $this->hasMany('App\Facture');
-   }
-   public function comptesBancaires()
-   {
-       return $this->hasMany('App\Compte_bancaire');
-   }
-   public function role()
-   {
-       return $this->belongsTo('App\Role');
-   }
-   public function parameteres()
-   {
-       return $this->hasMany('App\Parameter');
-   }
-   public function devises()
-   {
-       return $this->hasMany('App\Devis');
-   }
+    public function Clients()
+    {
+        return $this->hasMany('App\Client');
+    }
 
-   public function mot_cles()
-   {
-       return $this->hasMany(MotCle::class);
-   }
+    public function users()
+    {
+        return $this->hasMany('App\Societe');
+    }
+    public function factures()
+    {
+        return $this->hasMany('App\Facture');
+    }
+    public function comptesBancaires()
+    {
+        return $this->hasMany('App\Compte_bancaire');
+    }
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+    public function parameteres()
+    {
+        return $this->hasMany('App\Parameter');
+    }
+    public function devises()
+    {
+        return $this->hasMany('App\Devis');
+    }
+
+    public function acomptes()
+    {
+        return $this->hasMany(FactureAcompte::class);
+    }
+
+    public function mot_cles()
+    {
+        return $this->hasMany(MotCle::class);
+    }
 }
-
-
-

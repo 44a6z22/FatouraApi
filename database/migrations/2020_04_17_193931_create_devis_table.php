@@ -34,6 +34,9 @@ class CreateDevisTable extends Migration
 
             $table->integer('duree_validité');
 
+            $table->boolean('is_refused')->default(false);
+            $table->boolean('is_signed')->default(false);
+            $table->boolean('is_finalised')->default(false);
 
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();

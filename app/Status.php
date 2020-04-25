@@ -15,4 +15,9 @@ class Status extends Model
     {
         return $this->hasMany('App\Devis');
     }
+
+    public function acomptes()
+    {
+        return $this->hasMany(FactureAcompte::class);
+    }
 }

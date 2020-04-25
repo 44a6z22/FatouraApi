@@ -36,6 +36,10 @@ class Reglement extends Model
     {
         return $this->belongsTo('App\Facture');
     }
+    public function acomptes()
+    {
+        return $this->hasMany(FactureAcompte::class);
+    }
 
 
 

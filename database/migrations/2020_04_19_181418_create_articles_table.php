@@ -14,7 +14,7 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-
+            $table->id();
             $table->unsignedBigInteger('type_articles_id');
             $table->foreign('type_articles_id')->references('id')->on('type_articles');
             $table->unsignedBigInteger('facture_id')->nullable();
