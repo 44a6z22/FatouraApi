@@ -114,4 +114,19 @@ class FactureAcompteController extends Controller
         //
         $factureAcompte->remove();
     }
+
+    public function exportPdf($id)
+    {
+        $data = FactureAcompte::find($id);
+
+        if ($data == null) {
+            return abort(404);
+        }
+        if ($data->is_deleted) {
+            return abort(404);
+        }
+        $pdf = PDF::loadView('Pdf', compact('data'));
+
+        return $pdf->download('invoice.pdf');
+    }
 }
