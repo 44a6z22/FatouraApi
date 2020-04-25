@@ -19,7 +19,7 @@ class FactureAcompteResource extends JsonResource
             "user_id" => $this->user_id,
             "devis_id" => $this->devis_id,
             "montant" => $this->montant,
-            "tva" => $this->tva,
+            "tva" => $this->tva . "%",
             "text_document" => new TextDocumentResource($this->text_document),
             "reglement_id" => new ReglementResource($this->reglement),
             "status" => $this->status->status_value,

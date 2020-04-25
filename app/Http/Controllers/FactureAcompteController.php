@@ -18,8 +18,13 @@ class FactureAcompteController extends Controller
      */
     public function index()
     {
-        //
-        return FactureAcompteResource::collection(FactureAcompte::all()->where('user_id', Auth::user()->id));
+        return [
+            "Facture-acompte" => FactureAcompteResource::collection(
+                FactureAcompte::all()
+                    ->where('user_id', Auth::user()->id)
+                    ->where("is_deleted", false)
+            )
+        ];
     }
 
     /**
@@ -43,10 +48,11 @@ class FactureAcompteController extends Controller
         //adding text 
         $text = new Text_Document();
         $text->store($request->text_document);
-        // adding Reglement 
 
+        // adding Reglement 
         $reglement = new Reglement();
         $reglement->store($request->reglement);
+
         // adding facture d'acompte
         $factureAcompte = new FactureAcompte();
         $factureAcompte->store($request, $text->id, $reglement->id);
@@ -63,10 +69,14 @@ class FactureAcompteController extends Controller
      */
     public function show(FactureAcompte $factureAcompte)
     {
-        //
         if ($factureAcompte == null) {
             return abort(404);
         }
+
+        if ($factureAcompte->is_deleted) {
+            return abort(404);
+        }
+
         return new FactureAcompteResource($factureAcompte);
     }
 
@@ -102,5 +112,6 @@ class FactureAcompteController extends Controller
     public function destroy(FactureAcompte $factureAcompte)
     {
         //
+        $factureAcompte->remove();
     }
 }

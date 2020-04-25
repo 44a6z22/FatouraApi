@@ -44,4 +44,10 @@ class FactureAcompte extends Model
 
         $this->save();
     }
+
+    public function remove()
+    {
+        $this->is_deleted = true;
+        $this->save();
+    }
 }

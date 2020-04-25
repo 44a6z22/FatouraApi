@@ -24,7 +24,6 @@ class CreateFactureAcomptesTable extends Migration
             $table->float('montant')->default(0);
             $table->float('tva')->default(0);
 
-
             $table->unsignedBigInteger('text_document_id');
             $table->foreign('text_document_id')->references('id')->on('text_documents')->onDelete('cascade');
 
@@ -36,6 +35,7 @@ class CreateFactureAcomptesTable extends Migration
 
             $table->timestamp('payed_at')->nullable();
             $table->boolean('is_finalised')->default(false);
+            $table->boolean('is_deleted')->default(false);
 
             $table->timestamps();
         });

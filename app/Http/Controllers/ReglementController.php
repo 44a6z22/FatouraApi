@@ -54,7 +54,7 @@ class ReglementController extends Controller
     public function show(Reglement $reglement)
     {
         //
-        return new ReglementResource($reglement)
+        return new ReglementResource($reglement);
     }
 
     /**

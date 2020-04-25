@@ -15,10 +15,11 @@ class TextDocumentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "introduction" => $this->Introduction,
-            "Conclusion" => $this->Conclusion,
-            "footer" => $this->Pied_page,
-            "condition" => $this->Condition_general
+            "id"            => $this->id,
+            "introduction"  => $this->Introduction,
+            "Conclusion"    => $this->Conclusion,
+            "footer"        => $this->Pied_page,
+            "condition"     => $this->Condition_general
         ];
     }
 }

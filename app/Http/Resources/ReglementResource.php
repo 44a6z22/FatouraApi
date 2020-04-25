@@ -15,9 +15,9 @@ class ReglementResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "Reglement_id" => $this->id,
-            "Condition" => $this->condition_reglement->Condition_value,
-            "Mode" => $this->mode_reglement->mode_value,
+            "Reglement_id"      => $this->id,
+            "Condition"         => $this->condition_reglement->Condition_value,
+            "Mode"              => $this->mode_reglement->mode_value,
             "Interet_de_retard" => $this->interet_retard->inter_value . " %",
         ];
     }

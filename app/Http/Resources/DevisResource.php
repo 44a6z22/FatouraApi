@@ -15,14 +15,14 @@ class DevisResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "devis_id" => $this->id,
-            "User_id" =>  $this->user_id,
-            "Statut_id" => $this->status_id,
-            "durée_validité" => $this->duree_validité,
-            "Reglement" => new ReglementResource($this->reglements),
-            "Text_Document" => new TextDocumentResource($this->textDocument),
-            "Artiles" => ArticleResource::collection($this->articles),
-            "Keywords" => MotCleResource::collection($this->mot_cles)
+            "devis_id"          => $this->id,
+            "User_id"           =>  $this->user_id,
+            "Statut_id"         => $this->status_id,
+            "durée_validité"    => $this->duree_validité,
+            "Reglement"         => new ReglementResource($this->reglements),
+            "Text_Document"     => new TextDocumentResource($this->textDocument),
+            "Artiles"           => ArticleResource::collection($this->articles),
+            "Keywords"          => MotCleResource::collection($this->mot_cles)
         ];
     }
 }
