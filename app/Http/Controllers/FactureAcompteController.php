@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\FactureAcompte;
 use App\Http\Resources\FactureAcompteResource;
+use App\Reglement;
+use App\Text_Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +40,19 @@ class FactureAcompteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //adding text 
+        $text = new Text_Document();
+        $text->store($request->text_document);
+        // adding Reglement 
+
+        $reglement = new Reglement();
+        $reglement->store($request->reglement);
+        // adding facture d'acompte
+        $factureAcompte = new FactureAcompte();
+        $factureAcompte->store($request, $text->id, $reglement->id);
+
+
+        return new FactureAcompteResource($factureAcompte);
     }
 
     /**

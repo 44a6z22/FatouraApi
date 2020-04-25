@@ -41,10 +41,6 @@ class Reglement extends Model
         return $this->hasMany(FactureAcompte::class);
     }
 
-
-
-
-
     public function store($reglement, $facureId = null, $devisId = null)
     {
         $this->condition_reglement_id = $reglement["condition_id"];
