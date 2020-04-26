@@ -10,6 +10,9 @@ use App\MotCle;
 use App\Reglement;
 use App\Text_Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PDF;
+// use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class FactureController extends Controller
 {
@@ -22,7 +25,11 @@ class FactureController extends Controller
     {
 
         return [
-            "factures" => FactureResource::collection(Facture::all()->where('is_deleted', false))
+            "factures" => FactureResource::collection(
+                Facture::all()
+                    ->where('is_deleted', false)
+                    ->where('user_id', Auth::user()->id)
+            )
         ];
         // return Facture::all();
     }
@@ -148,5 +155,24 @@ class FactureController extends Controller
         //
         $facture = Facture::find($id);
         $facture->remove();
+    }
+
+
+    public function physicalDelete($id)
+    {
+        Facture::destroy($id);
+    }
+
+    public function exportPdf($id)
+    {
+        $facture = Facture::find($id);
+
+        if ($facture == null) {
+            return abort(404);
+        }
+
+        $pdf = PDF::loadView('FacturePdf', compact('facture'));
+
+        return $pdf->download('invoice.pdf');
     }
 }

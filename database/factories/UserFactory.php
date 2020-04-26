@@ -8,9 +8,9 @@ use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
         "role_id" => $faker->numberBetween(1, 2),
-        "User_Nom" => $faker->name,
-        "User_Email" => $faker->unique()->safeEmail,
-        "User_password" => $faker->password,
+        "name" => $faker->name,
+        "email" => $faker->unique()->safeEmail,
+        "password" => $faker->password,
         "User_Nom_Societe" => $faker->word,
         "User_Identifiant_Fiscale" => $faker->word,
         "User_Identifiant_Commun_Entreprise" => $faker->word,

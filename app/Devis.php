@@ -52,7 +52,7 @@ class Devis extends Model
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;
         $this->text_document_id = $textId;
-        $this->user_id = $request->user_id;
+        $this->user_id = Auth::user()->id;
         $this->status_id = $request->status_id;
 
         $this->save();

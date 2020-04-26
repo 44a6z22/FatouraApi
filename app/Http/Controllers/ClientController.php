@@ -10,6 +10,7 @@ use App\MotCle;
 use App\Numtele;
 use Exception;
 use Illuminate\Http\Request;
+use PDF;
 
 class ClientController extends Controller
 {
