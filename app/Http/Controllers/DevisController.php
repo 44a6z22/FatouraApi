@@ -9,6 +9,7 @@ use App\FactureMotCle;
 use App\Http\Resources\DevisResource;
 use App\MotCle;
 use App\Reglement;
+use App\Status;
 use App\Text_Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,16 @@ class DevisController extends Controller
     public function store(Request $request)
     {
         // 
+
+        if (Devis::find($request->devi_id) == null) {
+            return ["devis not found"];
+        }
+
+        if (Status::find($request->status_id) == null) {
+            return ["Status not found"];
+        }
+
+
         // add a new  text Document
         $text = new Text_Document();
         $text->store($request->textDocument);

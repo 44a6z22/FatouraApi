@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Devis;
 use App\FactureAcompte;
 use App\Http\Resources\FactureAcompteResource;
 use App\Reglement;
+use App\Status;
 use App\Text_Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +47,20 @@ class FactureAcompteController extends Controller
      */
     public function store(Request $request)
     {
+        // check before adding anything 
+
+        if (Auth::user()->email_verified  != 1) {
+            return ["your account isn't activated"];
+        }
+
+        if (Devis::find($request->devi_id) == null) {
+            return ["devis not found"];
+        }
+
+        if (Status::find($request->status_id) == null) {
+            return ["Status not found"];
+        }
+
         //adding text 
         $text = new Text_Document();
         $text->store($request->text_document);
