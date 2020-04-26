@@ -19,8 +19,11 @@ class CreateUsersTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
 
             $table->text('name');
-            $table->text('email');
+            $table->text('email')->unique;
             $table->text('password');
+            $table->string('email_verification_token');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->integer('email_verified')->default(0);
             $table->text('User_Nom_Societe')->nullable();
             $table->text('User_Identifiant_Fiscale')->nullable();
             $table->text('User_Identifiant_Commun_Entreprise')->nullable();
@@ -28,7 +31,6 @@ class CreateUsersTable extends Migration
             $table->integer('User_Code_Postal')->nullable();
             $table->text('User_Ville')->nullable();
             $table->text('User_Site_Internet')->nullable();
-
 
 
             $table->boolean('is_deleted')->default(false);

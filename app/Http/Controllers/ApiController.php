@@ -3,9 +3,13 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
+use App\Mail\VerificationEmail;
+use Illuminate\Support\Facades\Mail;
+
 class APIController extends Controller
 {
     /**
@@ -72,9 +76,11 @@ public function login(Request $request)
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->email_verification_token=Str::random(32);
         $user->save();
 
         if ($this->loginAfterSignUp) {
+            Mail::to(request('email'))->send(new VerificationEmail($user));
             return $this->login($request);
         }
 
