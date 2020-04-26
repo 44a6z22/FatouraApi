@@ -15,8 +15,8 @@ class AdressResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            "adress" => $this->Adress_value
+            'id'        => $this->id,
+            "adress"    => $this->Adress_value
         ];
     }
 }

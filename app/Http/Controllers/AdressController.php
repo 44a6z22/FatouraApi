@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Adress;
+use App\Http\Resources\AdressResource;
 use Illuminate\Http\Request;
 
 class AdressController extends Controller
@@ -15,6 +16,7 @@ class AdressController extends Controller
     public function index()
     {
         //
+        return AdressResource::collection(Adress::All());
     }
 
     /**
@@ -47,6 +49,7 @@ class AdressController extends Controller
     public function show(Adress $adress)
     {
         //
+        return new AdressResource($adress);
     }
 
     /**

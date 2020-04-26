@@ -15,8 +15,8 @@ class MotCleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "user_id" => $this->user_id,
+            "id"            => $this->id,
+            "user_id"       => $this->user_id,
             "mot_clé_value" => $this->Mot_de_value
         ];
     }

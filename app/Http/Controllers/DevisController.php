@@ -141,4 +141,18 @@ class DevisController extends Controller
 
         return ["deleted with success"];
     }
+    public function exportPdf($id)
+    {
+        $data = Devis::find($id);
+
+        if ($data == null) {
+            return abort(404);
+        }
+        if ($data->is_deleted) {
+            return abort(404);
+        }
+        $pdf = PDF::loadView('Pdf', compact('data'));
+
+        return $pdf->download('invoice.pdf');
+    }
 }

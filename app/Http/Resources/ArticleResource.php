@@ -15,14 +15,14 @@ class ArticleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "type_article_id" => $this->type_articles_id,
-            "quantité" => $this->quantité,
-            "prix_ht" => $this->prix_ht,
-            "tva" => $this->tva,
-            "reduction" => $this->reduction,
-            "total_ht" => $this->total_ht,
-            "total_ttc" => $this->total_ttc,
-            "description" => $this->description
+            "type_article_id"   => $this->type_articles_id,
+            "quantité"          => $this->quantité,
+            "prix_ht"           => $this->prix_ht,
+            "tva"               => $this->tva . "%",
+            "reduction"         => $this->reduction,
+            "total_ht"          => $this->total_ht,
+            "total_ttc"         => $this->total_ttc,
+            "description"       => $this->description
         ];
     }
 }

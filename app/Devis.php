@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Devis extends Model
 {
@@ -38,6 +39,10 @@ class Devis extends Model
     }
 
 
+    public function acomptes()
+    {
+        return $this->hasMany(FactureAcompte::class);
+    }
     public function mot_cles()
     {
         return $this->belongsToMany(MotCle::class);

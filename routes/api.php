@@ -37,12 +37,14 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
     Route::resource("societes", "SocieteController");
+    Route::Resource("/facture-acompte", "FactureAcompteController");
 
     Route::Delete("factures/delete/physical/{id}", "FactureController@physicalDelete");
 
     // Downloading Pdfs 
     Route::get('/factures/{id}/download', 'FactureController@exportPdf');
     Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
+    Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf');
 });
 
 

@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Compte_bancaire;
-use App\Condition_reglement;
-use App\Http\Resources\ReglementResource;
-use App\Interet_retard;
-use App\Mode_reglement;
-use App\Reglement;
+use App\FactureType;
 use Illuminate\Http\Request;
 
-class ReglementController extends Controller
+class FactureTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +15,6 @@ class ReglementController extends Controller
     public function index()
     {
         //
-        return ReglementResource::collection(Reglement::all());
     }
 
     /**
@@ -42,28 +36,26 @@ class ReglementController extends Controller
     public function store(Request $request)
     {
         //
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\FactureType  $factureType
      * @return \Illuminate\Http\Response
      */
-    public function show(Reglement $reglement)
+    public function show(FactureType $factureType)
     {
         //
-        return new ReglementResource($reglement);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\FactureType  $factureType
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FactureType $factureType)
     {
         //
     }
@@ -72,10 +64,10 @@ class ReglementController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\FactureType  $factureType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FactureType $factureType)
     {
         //
     }
@@ -83,10 +75,10 @@ class ReglementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\FactureType  $factureType
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FactureType $factureType)
     {
         //
     }

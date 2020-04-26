@@ -1,0 +1,21 @@
+{
+        "id": 1,
+        "user_id": 11,
+        "devis_id": 1,
+        "montant": 111,
+        "tva": 12,
+        "text_document": {
+            "introduction": "Beatae tempora et libero.",
+            "conclusion": "Ea id quasi voluptatem.",
+            "pied_page": "Voluptas in officiis aspernatur corporis quia.",
+            "condition": "Quidem quidem recusandae assumenda illo maiores dolore tempora."
+        },
+        "reglement": {
+            "Reglement_id": 12,
+            "condition_id": 1,
+            "mode_id": 1,
+            "interet_id": 2, 
+            "compte_bancaire" : null
+        },
+        "status_id": 1 
+}

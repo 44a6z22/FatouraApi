@@ -165,13 +165,15 @@ class FactureController extends Controller
 
     public function exportPdf($id)
     {
-        $facture = Facture::find($id);
+        $data = Facture::find($id);
 
-        if ($facture == null) {
+        if ($data == null) {
             return abort(404);
         }
-
-        $pdf = PDF::loadView('FacturePdf', compact('facture'));
+        if ($data->is_deleted) {
+            return abort(404);
+        }
+        $pdf = PDF::loadView('Pdf', compact('data'));
 
         return $pdf->download('invoice.pdf');
     }

@@ -14,7 +14,7 @@ class CreateFacturesTable extends Migration
     public function up()
     {
         Schema::create('factures', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->unsignedBigInteger('text_document_id');
             $table->foreign('text_document_id')->references('id')->on('text_documents')->onDelete('cascade');
@@ -31,10 +31,16 @@ class CreateFacturesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
 
-
-
+            $table->boolean('is_finalised')->default(false);
 
             $table->boolean('is_deleted')->default(false);
+
+            $table->timestamp('payed_at')->nullable();
+
+
+
+            $table->unsignedBigInteger('facture_type_id')->unsigned();
+            $table->foreign("facture_type_id")->references("id")->on("facture_types");
 
             $table->timestamps();
         });

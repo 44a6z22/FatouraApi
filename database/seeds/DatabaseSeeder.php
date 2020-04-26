@@ -1,5 +1,6 @@
 <?php
 
+// use App\FactureType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(FactureTypeSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(TypeArticleSeeder::class);
@@ -32,6 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ModeReglementSeeder::class);
         $this->call(ReglementSeeder::class);
 
+
+        $this->call(FactureAcompteSeeder::class);
 
         // $this->class(Arti)
     }
