@@ -22,6 +22,10 @@ Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
 Route::get('/verify/{token}', 'VerifyController@VerifyEmail')->name('verify');
 
+Route::post('password/create', 'PasswordResetController@create');
+Route::get('password/find/{token}', 'PasswordResetController@find');
+Route::post('password/reset', 'PasswordResetController@reset');
+
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'ApiController@logout');
