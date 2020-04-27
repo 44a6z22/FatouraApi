@@ -14,15 +14,26 @@ class DevisResource extends JsonResource
      */
     public function toArray($request)
     {
+        $htArray = [];
+        $ttcArray = [];
+
+        foreach ($this->articles as $article) {
+            array_push($htArray, $article->total_ht);
+            array_push($ttcArray, $article->total_ttc);
+        }
+
         return [
-            "devis_id"          => $this->id,
-            "User_id"           =>  $this->user_id,
-            "Statut_id"         => $this->status_id,
+            "id"          => $this->id,
+            "user_id"           => $this->user_id,
+            "statut_id"         => $this->status_id,
             "durée_validité"    => $this->duree_validité,
-            "Reglement"         => new ReglementResource($this->reglements),
+            "total_ht"          => array_sum($htArray),
+            "total_ttc"         => array_sum($ttcArray),
+            "reglement"         => new ReglementResource($this->reglements),
             "Text_Document"     => new TextDocumentResource($this->textDocument),
-            "Artiles"           => ArticleResource::collection($this->articles),
+            "artiles"           => ArticleResource::collection($this->articles),
             "Keywords"          => MotCleResource::collection($this->mot_cles)
+
         ];
     }
 }

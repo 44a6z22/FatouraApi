@@ -150,7 +150,7 @@ class DevisController extends Controller
     }
     public function exportPdf($id)
     {
-        $data = Devis::find($id);
+        $data = new DevisResource(Devis::find($id));
 
         if ($data == null) {
             return abort(404);

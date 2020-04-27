@@ -104,7 +104,7 @@
 										<td class="table-data">{{$articles->description}}</td>
 										<td class="table-data">{{$articles->prix_ht}}</td>
 										<td class="table-data">{{$articles->quantité}}</td>
-										<td class="table-data">{{$articles->tva}}</td>
+										<td class="table-data">{{$articles->total_ht}}</td>
 									</tr>
 
 									@endforeach
