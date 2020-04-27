@@ -17,6 +17,7 @@ $factory->define(User::class, function (Faker $faker) {
         "User_Taxe_Professionnele" =>  $faker->numberBetween(1, 29),
         "User_Code_Postal" => $faker->numberBetween(10009, 2992929),
         "User_Ville" => $faker->city,
-        "User_Site_Internet" => "www" . $faker->word . ".com"
+        "User_Site_Internet" => "www" . $faker->word . ".com",
+
     ];
 });

@@ -30,6 +30,9 @@ class FactureAcompte extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+
+
     public function store(Request $request, $textId, $reglementId)
     {
         $this->user_id = Auth::user()->id;

@@ -25,6 +25,7 @@ class CreateClientsTable extends Migration
 
             $table->text('Client_Nom');
             $table->text('Client_Prenom');
+            $table->text('Client_email');
             $table->text('Client_Ville');
             $table->integer('Client_Code_Postal');
             $table->text('Client_Pays');

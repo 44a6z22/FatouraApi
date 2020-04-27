@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->text('name');
             $table->text('email')->unique;
             $table->text('password');
-            $table->string('email_verification_token');
+            $table->string('email_verification_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->integer('email_verified')->default(0);
+            $table->integer('email_verified')->default(false);
             $table->text('User_Nom_Societe')->nullable();
             $table->text('User_Identifiant_Fiscale')->nullable();
             $table->text('User_Identifiant_Commun_Entreprise')->nullable();

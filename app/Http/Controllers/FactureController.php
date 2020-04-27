@@ -173,7 +173,7 @@ class FactureController extends Controller
         if ($data->is_deleted) {
             return abort(404);
         }
-        $pdf = PDF::loadView('Pdf', compact('data'));
+        $pdf = PDF::loadView('FactureData', compact('data'));
 
         return $pdf->download('invoice.pdf');
     }

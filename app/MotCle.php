@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MotCle extends Model
 {
@@ -38,7 +39,7 @@ class MotCle extends Model
 
     public function store($value, $userId = null)
     {
-        $this->user_id = $userId;
+        $this->user_id = Auth::user()->id;
         $this->mot_de_value =  $value;
         $this->save();
     }

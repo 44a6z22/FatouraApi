@@ -49,11 +49,7 @@ class FactureAcompteController extends Controller
     {
         // check before adding anything 
 
-        if (Auth::user()->email_verified  != 1) {
-            return ["your account isn't activated"];
-        }
-
-        if (Devis::find($request->devi_id) == null) {
+        if (Devis::find($request->devis_id) == null) {
             return ["devis not found"];
         }
 

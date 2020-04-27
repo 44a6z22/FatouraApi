@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use JWTAuth;
@@ -8,6 +9,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
 use App\Mail\VerificationEmail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class APIController extends Controller
@@ -21,17 +23,31 @@ class APIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-public function login(Request $request)
+    public function login(Request $request)
     {
         $input = $request->only('email', 'password');
         $token = null;
 
+
+
+        // if cordinate are wrong
         if (!$token = JWTAuth::attempt($input)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Email or Password',
             ], 401);
         }
+
+
+        // if account email isn't verified
+        if (!Auth::user()->email_verified) {
+            return response()->json([
+                'success' => false,
+                // 'token' => $token,
+                'reason' => 'your email is not verified yet'
+            ]);
+        }
+
 
         return response()->json([
             'success' => true,
@@ -72,11 +88,11 @@ public function login(Request $request)
     public function register(RegistrationFormRequest $request)
     {
         $user = new User();
-        $user->role_id=1;
+        $user->role_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->email_verification_token=Str::random(32);
+        $user->email_verification_token = Str::random(32);
         $user->save();
 
         if ($this->loginAfterSignUp) {
