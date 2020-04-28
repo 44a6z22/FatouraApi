@@ -31,6 +31,21 @@ class FactureAcompte extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function finalise()
+    {
+        $this->is_finalised = true;
+        $this->save();
+    }
+    public function pay()
+    {
+        $this->payed_at = now();
+        $this->save();
+    }
+    public function unpay()
+    {
+        $this->payed_at = null;
+        $this->save();
+    }
 
 
     public function store(Request $request, $textId, $reglementId)

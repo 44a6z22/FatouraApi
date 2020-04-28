@@ -11,9 +11,9 @@
 							<h1 id="date">{{$data->created_at}}</h1>
 									
 						</td>
-						<td style="text-align: center; padding-bottom:100px;">
+						{{-- <td style="text-align: center; padding-bottom:100px;">
 							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" width="100px" height="100px" alt="Fatourat logo">
-						</td>
+						</td> --}}
 					</tr>
 
 					
@@ -45,37 +45,37 @@
 							</div>
 							<div class="From-info" style="margin-left: 5%;">
 
-								@if($data->client != null)
+								@if($data->devis->client != null)
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
-													{{$data->client->Client_Nom ." " . $data->client->Client_Nom}} 
+													{{$data->devis->client->Client_Nom ." " . $data->devis->client->Client_Nom}} 
 									</p>
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
-													{{ $data->client->Client_Prenom }}
+													{{ $data->devis->client->Client_Prenom }}
 									</p>
 									
-									@foreach($data->client->nums as $number)	
+									@foreach($data->devis->client->nums as $number)	
 										<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
 														{{$number->Num_value}}
 										</p>
 									@endforeach
 
-									@foreach($data->client->adresses as $adrs)
+									@foreach($data->devis->client->adresses as $adrs)
 										<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
 														{{$adrs->Adress_value}}
 										</p>
 									@endforeach 
 								@else
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
-													{{$data->societe->name}} 
+													{{$data->devis->societe->Societe_Nom}} 
 									</p>
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
-													{{$data->societe->email}}
+													{{$data->devis->societe->Societe_Nom}}
 									</p>
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
 													212000101999
 									</p>
 									<p style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 5px; vertical-align: top;text-align: left;padding-left: 60px; ">
-													{{$data->societe->User_Ville}}, Maroc
+													{{$data->devis->societe->Societe_Ville}}, Maroc
 									</p>
 								@endif
 							</div>
@@ -95,13 +95,13 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($data->articles as $articles)
 									<tr>
-                                        <td class="table-data">{{$articles->type_articles->article_type_value}}</td>
-										<td class="table-data">{{$articles->}}</td>
+                                        <td class="table-data"> 
+										Deposit of {{$data->montant}}% for the quotation {{$data->devis->id}} of {{$data->devis->total_ttc}}. Dh excl tax
+										</td>
+										<td class="table-data">{{$data->devis->total_ttc * ($data->montant / 100)}} Dh</td>
 									</tr>
 
-									@endforeach
 								</tbody>
 							</table>
 						</td>
@@ -122,18 +122,18 @@
 									
 									<tbody>
 										<tr>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">total </td>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">450 dh</td>
+											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">Total excl tax </td>
+											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;"> {{ $preTax = $data->devis->total_ttc * ($data->montant / 100)}} dh</td>
 										</tr>
 										<tr>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; "><strong>Somme Total (Avec.Taxe) </strong> </td>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">844.90 dh
+										<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; "><strong>VAT ({{$data->tva}}%) </strong> </td>
+											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;"> {{ $tva = ( $preTax ) *  ($data->tva / 100)  }} dh
 										</td>
 										</tr>
 										
 										<tr>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">TAXE </td>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">	72.40 dh</td>
+											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">Total incl tax </td>
+											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">{{$preTax + $tva}} Dh</td>
 										</tr>
 									</tbody>
 								</table>
@@ -151,11 +151,11 @@
 									<tbody>
 										<tr id="S1">
 											<td style=" font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;"><strong>CONDITIONS DE RÈGLEMENT:</strong> </td>
-											<td style=" font-size: 12px; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">{{$data->reglements->condition_reglement->Condition_value}}</td>
+											<td style=" font-size: 12px; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">{{$data->reglement->condition_reglement->Condition_value}}</td>
 										</tr>
 										<tr id="S1">
 											<td style=" font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;"><strong>MODE DE RÈGLEMENT :</strong> </td>
-											<td style=" font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">{{$data->reglements->mode_reglement->mode_value}}</td>
+											<td style=" font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">{{$data->reglement->mode_reglement->mode_value}}</td>
 										</tr>
 										
 									

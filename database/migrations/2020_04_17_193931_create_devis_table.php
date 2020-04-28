@@ -33,6 +33,9 @@ class CreateDevisTable extends Migration
 
 
             $table->integer('duree_validité');
+            $table->float("total_ht");
+            $table->float("total_ttc");
+            $table->float("montant_tva");
 
             $table->boolean('is_refused')->default(false);
             $table->boolean('is_signed')->default(false);

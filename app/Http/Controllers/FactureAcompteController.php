@@ -10,6 +10,7 @@ use App\Status;
 use App\Text_Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class FactureAcompteController extends Controller
 {
@@ -127,6 +128,27 @@ class FactureAcompteController extends Controller
         $factureAcompte->remove();
     }
 
+
+
+
+
+    public function finalise($id)
+    {
+        $facture = FactureAcompte::find($id);
+        $facture->finalise();
+    }
+
+    public function pay($id)
+    {
+        $facture = FactureAcompte::find($id);
+        $facture->pay();
+    }
+    public function unpay($id)
+    {
+        $facture = FactureAcompte::find($id);
+        $facture->unpay();
+    }
+
     public function exportPdf($id)
     {
         $data = FactureAcompte::find($id);
@@ -137,8 +159,12 @@ class FactureAcompteController extends Controller
         if ($data->is_deleted) {
             return abort(404);
         }
-        $pdf = PDF::loadView('Pdf', compact('data'));
 
+
+        $pdf = PDF::loadView(
+            'FactureAcompteData',
+            compact('data')
+        );
         return $pdf->download('invoice.pdf');
     }
 }

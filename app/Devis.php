@@ -81,6 +81,18 @@ class Devis extends Model
 
     public function store(Request $request, $textId)
     {
+
+        $ttc = $ht = $tva = 0;
+        foreach ($request->articles as $article) {
+            $ht  += $article['total_ht'];
+            $ttc += $article['total_ttc'];
+            $tva += $ht * ($article['tva'] / 100);
+        }
+
+        $this->total_ht = $ht;
+        $this->total_ttc = $ttc;
+        $this->montant_tva = $tva;
+
         $this->duree_validité = $request->duree_validite;
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;

@@ -35,12 +35,12 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/condition_reglement', "ConditionReglementController");
     Route::resource('/interet_retard', "InteretRetardController");
     Route::resource('/compte_bancaire', "CompteBancaireController");
-    // Route::resource('/devis', "DevisController");
+
     Route::resource('/articles', "ArticleController");
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
     Route::resource("societes", "SocieteController");
-    Route::Resource("/facture-acompte", "FactureAcompteController");
+    Route::Resource("/factures-acompte", "FactureAcompteController");
 
 
 
@@ -55,23 +55,27 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // devis Resource
     Route::resource('/devis', "DevisController");
+    Route::get('/devis/{id}/finalise', 'DevisController@finalise');
+    Route::get('/devis/{id}/sign', 'DevisController@sign');
+    Route::get('/devis/{id}/unsign', 'DevisController@unsign');
+    Route::get('/devis/{id}/refuse', 'DevisController@refuse');
+    Route::get('/devis/{id}/cancel-refuse', 'DevisController@cancelRefuse');
+    Route::Delete("/devis/delete/physical/{id}", "DevisController@physicalDelete");
+    Route::get('/devis/{id}/download', 'DevisController@exportPdf');
 });
 
 
 // Downloading Pdfs 
 
-Route::get('/factures/{id}/download', 'FactureController@exportPdf');
+// Route::get('/factures/{id}/download', 'FactureController@exportPdf');
 // Route::get('/factures/{id}/finalise', 'FactureController@finalise');
-Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
-Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf');
+// Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
+Route::get('/factures-acompte/{id}/download', 'FactureAcompteController@exportPdf');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/devis/{id}/finalise', 'DevisController@finalise');
-Route::get('/devis/{id}/sign', 'DevisController@sign');
-Route::get('/devis/{id}/unsign', 'DevisController@unsign');
-Route::get('/devis/{id}/refuse', 'DevisController@refuse');
-Route::get('/devis/{id}/cancel-refuse', 'DevisController@cancelRefuse');
-Route::Delete("/devis/delete/physical/{id}", "DevisController@physicalDelete");
-Route::get('/devis/{id}/download', 'DevisController@exportPdf');
+// Route::resource('/factures-acompte', "FactureAcompteController");
+Route::get('/factures-acompte/{id}/finalise', 'FactureAcompteController@finalise');
+Route::get('/factures-acompte/{id}/pay', 'FactureAcompteController@pay');
+Route::get('/factures-acompte/{id}/unpay', 'FactureAcompteController@unpay');
