@@ -49,7 +49,35 @@ class Devis extends Model
     }
 
 
+    public function sign()
+    {
+        $this->is_signed = true;
+        $this->save();
+    }
 
+    public function unsign()
+    {
+        $this->is_signed = false;
+        $this->save();
+    }
+
+    public function finalise()
+    {
+        $this->is_finalised = true;
+        $this->save();
+    }
+
+    public function refuse()
+    {
+        $this->is_refused = true;
+        $this->save();
+    }
+
+    public function cancelRefuse()
+    {
+        $this->is_refused = false;
+        $this->save();
+    }
 
     public function store(Request $request, $textId)
     {

@@ -148,6 +148,34 @@ class DevisController extends Controller
 
         return ["deleted with success"];
     }
+
+
+    public function sign($id)
+    {
+        $devis = Devis::find($id);
+        $devis->sign();
+    }
+    public function unsign($id)
+    {
+        $devis = Devis::find($id);
+        $devis->unsign();
+    }
+    public function refuse($id)
+    {
+        $devis = Devis::find($id);
+        $devis->refuse();
+    }
+    public function cancelRefuse($id)
+    {
+        $devis = Devis::find($id);
+        $devis->cancelRefuse();
+    }
+    public function finalise($id)
+    {
+        $devis = Devis::find($id);
+        $devis->finalise();
+    }
+
     public function exportPdf($id)
     {
         $data = new DevisResource(Devis::find($id));
@@ -158,7 +186,17 @@ class DevisController extends Controller
         if ($data->is_deleted) {
             return abort(404);
         }
-        $pdf = PDF::loadView('DevisData', compact('data'));
+
+        if (!$data->is_finalised) {
+            return [
+                "this item is not finalised yet "
+            ];
+        }
+
+        $pdf = PDF::loadView(
+            'DevisData',
+            compact('data')
+        );
 
         return $pdf->download('invoice.pdf');
     }

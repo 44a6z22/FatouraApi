@@ -31,20 +31,29 @@
 				display: inline-block;
 
 			}
-
-			.header {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				margin-top: 28px;
+			
+			.table-header{
+				font-size: 12px;
+				font-family: 'Open Sans', sans-serif; 
+				color: #1e2b33; 
+				font-weight: normal; 
+				line-height: 1; 
+				vertical-align: top; 
+				padding: 0 0 7px;
 			}
-			.table-header{font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;}
 			.table-data{
-				font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;
+				font-size: 12px; 
+				font-family: 'Open Sans', sans-serif; 
+				color: #646a6e;  
+				line-height: 18px;  
+				vertical-align: top; 
+				padding:10px 0;
 			}
 			.info-people{
-				margin-bottom: 20px;
+				margin-bottom: 5px;
 			}
-			.from, .to{
+			.from, 
+			.to{
 				font-size: 13px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; text-align: left;padding-left: 60px;
 			}
 

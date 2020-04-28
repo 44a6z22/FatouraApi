@@ -11,9 +11,9 @@
 							<h1 id="date">{{$data->created_at}}</h1>
 									
 						</td>
-						<td style="text-align: center; padding-bottom:100px;">
+						{{-- <td style="text-align: center; padding-bottom:100px;">
 							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" width="100px" height="100px" alt="Fatourat logo">
-						</td>
+						</td> --}}
 					</tr>
 
 					
@@ -147,10 +147,16 @@
 										</td>
 										</tr>
 										
-										<tr>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">TAXE </td>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">	{{$data->montant_tva}} dh</td>
-										</tr>
+										@foreach($data->articles as $article)
+											<tr>
+												<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+													TAXE ({{$articles->tva}}%)
+												</td>
+												<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">	
+													{{$article->total_ht * ($article->tva / 100)}} dh
+												</td>
+											</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>

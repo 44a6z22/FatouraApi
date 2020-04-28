@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/condition_reglement', "ConditionReglementController");
     Route::resource('/interet_retard', "InteretRetardController");
     Route::resource('/compte_bancaire', "CompteBancaireController");
-    Route::resource('/devis', "DevisController");
+    // Route::resource('/devis', "DevisController");
     Route::resource('/articles', "ArticleController");
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
@@ -49,13 +49,18 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/factures/{id}/finalise', 'FactureController@finalise');
     Route::get('/factures/{id}/pay', 'FactureController@pay');
     Route::get('/factures/{id}/unpay', 'FactureController@unpay');
-    Route::Delete("factures/delete/physical/{id}", "FactureController@physicalDelete");
+    Route::Delete("/factures/delete/physical/{id}", "FactureController@physicalDelete");
     Route::get('/factures/{id}/download', 'FactureController@exportPdf');
+
+
+    // devis Resource
+    Route::resource('/devis', "DevisController");
 });
 
 
 // Downloading Pdfs 
 
+Route::get('/factures/{id}/download', 'FactureController@exportPdf');
 // Route::get('/factures/{id}/finalise', 'FactureController@finalise');
 Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
 Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf');
@@ -63,3 +68,10 @@ Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::get('/devis/{id}/finalise', 'DevisController@finalise');
+Route::get('/devis/{id}/sign', 'DevisController@sign');
+Route::get('/devis/{id}/unsign', 'DevisController@unsign');
+Route::get('/devis/{id}/refuse', 'DevisController@refuse');
+Route::get('/devis/{id}/cancel-refuse', 'DevisController@cancelRefuse');
+Route::Delete("/devis/delete/physical/{id}", "DevisController@physicalDelete");
+Route::get('/devis/{id}/download', 'DevisController@exportPdf');

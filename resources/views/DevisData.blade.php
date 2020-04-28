@@ -6,14 +6,14 @@
 
 					{{-- header  --}}
 					<tr >
-						<td style="padding-bottom:100px;" scope="row" width="50%">
+						<td style="padding-bottom:50px;" scope="row" width="50%">
 							<h1 id="title">Devis {{$data->id}} </h1>
 							<h1 id="date">{{$data->created_at}}</h1>
 									
 						</td>
-						<td style="text-align: center; padding-bottom:100px;">
+						{{-- <td style="text-align: center; padding-bottom:50px;">
 							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" width="100px" height="100px" alt="Fatourat logo">
-						</td>
+						</td> --}}
 					</tr>
 
 					
@@ -88,7 +88,7 @@
 						<td scope="row" colspan="2" style="">
 							<h3 style="text-align: left; margin-top:40px;" id="detail">DETAILS</h3>
 							<table  border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding table">
-								<thead>
+								<thead class="thead-dark">
 									<tr>
 										<th scope="col" class="table-header"><strong>Type</strong></th>
 										<th scope="col" class="table-header"> <strong>Description </strong></th>
@@ -104,7 +104,7 @@
 										<td class="table-data">{{$articles->description}}</td>
 										<td class="table-data">{{$articles->prix_ht}}</td>
 										<td class="table-data">{{$articles->quantité}}</td>
-										<td class="table-data">{{$articles->total_ht}}</td>
+										<td class="table-data">{{$articles->tva}}</td>
 									</tr>
 
 									@endforeach
@@ -137,10 +137,16 @@
 										</td>
 										</tr>
 										
-										<tr>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">TAXE </td>
-											<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">	72.40 dh</td>
-										</tr>
+										@foreach($data->articles as $article)
+											<tr>
+												<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+													TAXE ({{$articles->tva}}%)
+												</td>
+												<td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right;">	
+													{{$article->total_ht * ($article->tva / 100)}} dh
+												</td>
+											</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>
@@ -148,8 +154,8 @@
 					</tr>
 
 					{{-- terms  --}}
-					<tr>
-						<td scope="row" colspan="2" width="100%">
+					<tr height="100px;">
+						<td scope="row" width="50%" >
 							<h3 style="text-align: left; " id="conditions">CONDITIONS</h3>
 							<div>
 								<table class="" >
@@ -168,6 +174,28 @@
 									</tbody>
 								</table>
 							</div>
+						</td>
+
+						<td width="50%" style="text-align: left; padding-top:70px;">
+
+								<h3 id="conditions" >Customer acceptence</h3>
+								<p style="font-size: 10px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 4px; vertical-align: top; text-align: left;">
+									At ............................................., the ......... / ........ / ..................... 
+								</p>
+								<p style="font-size: 10px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 4px; vertical-align: top; text-align: left;">
+									Signature : 
+								</p>
+								<textarea name="" id="" cols="30" rows="10" style="margin-bottom:10px;">
+									
+								</textarea>
+
+								<p style="font-size: 10px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 4px; vertical-align: top; text-align: left;">
+									Name and position of signatory : 
+								</p>
+								<textarea name="" id="" cols="30" rows="2">
+									
+								</textarea>
+							
 						</td>
 					</tr>
 
