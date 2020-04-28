@@ -31,6 +31,10 @@ class CreateFacturesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
 
+            $table->float("total_ht");
+            $table->float("total_ttc");
+            $table->float("montant_tva");
+
             $table->boolean('is_finalised')->default(false);
 
             $table->boolean('is_deleted')->default(false);
@@ -39,7 +43,7 @@ class CreateFacturesTable extends Migration
 
 
 
-            $table->unsignedBigInteger('facture_type_id')->unsigned();
+            $table->unsignedBigInteger('facture_type_id')->nullable();
             $table->foreign("facture_type_id")->references("id")->on("facture_types");
 
             $table->timestamps();

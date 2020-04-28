@@ -53,15 +53,44 @@ class Facture extends Model
 
     public function store(Request $request, $textId)
     {
+        $ttc = $ht = $tva = 0;
+        foreach ($request->articles as $article) {
+            $ht  += $article['total_ht'];
+            $ttc += $article['total_ttc'];
+            $tva += $ht * ($article['tva'] / 100);
+        }
+
+        $this->total_ht = $ht;
+        $this->total_ttc = $ttc;
+        $this->montant_tva = $tva;
+
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;
         $this->text_document_id = $textId;
+        $this->facture_type_id = $request->type_id;
         $this->user_id = Auth::user()->id;
         $this->status_id = $request->status_id;
         $this->payed_at = null;
         $this->facture_type_id = $request->facture_type_id;
         $this->save();
     }
+
+    public function finalise()
+    {
+        $this->is_finalised = true;
+        $this->save();
+    }
+    public function pay()
+    {
+        $this->payed_at = now();
+        $this->save();
+    }
+    public function unpay()
+    {
+        $this->payed_at = null;
+        $this->save();
+    }
+
     public function remove()
     {
         $this->is_deleted = true;

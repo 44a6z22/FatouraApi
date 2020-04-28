@@ -36,23 +36,29 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/interet_retard', "InteretRetardController");
     Route::resource('/compte_bancaire', "CompteBancaireController");
     Route::resource('/devis', "DevisController");
-    Route::resource('/factures', "FactureController");
     Route::resource('/articles', "ArticleController");
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
     Route::resource("societes", "SocieteController");
     Route::Resource("/facture-acompte", "FactureAcompteController");
 
-    Route::Delete("factures/delete/physical/{id}", "FactureController@physicalDelete");
 
-    // Downloading Pdfs 
+
+    /// Facture Resource 
+    Route::resource('/factures', "FactureController");
+    Route::get('/factures/{id}/finalise', 'FactureController@finalise');
+    Route::get('/factures/{id}/pay', 'FactureController@pay');
+    Route::get('/factures/{id}/unpay', 'FactureController@unpay');
+    Route::Delete("factures/delete/physical/{id}", "FactureController@physicalDelete");
     Route::get('/factures/{id}/download', 'FactureController@exportPdf');
-    Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
-    Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf');
 });
 
 
-Route::get('/devis/{id}/download', 'DevisController@exportPdf');
+// Downloading Pdfs 
+
+// Route::get('/factures/{id}/finalise', 'FactureController@finalise');
+Route::get('/Devis/{id}/download', 'DevisController@exportPdf');
+Route::get('/facture-acompte/{id}/download', 'FactureAcompteController@exportPdf');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

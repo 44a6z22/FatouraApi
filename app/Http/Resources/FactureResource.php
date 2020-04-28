@@ -28,7 +28,7 @@ class FactureResource extends JsonResource
             "Statut_id"         => $this->status_id,
             "Total_ht"          => array_sum($htArray),
             "Total_ttc"         => array_sum($ttcArray),
-            "Artiles"           => ArticleResource::collection($this->articles),
+            "Articles"           => ArticleResource::collection($this->articles),
             "Keywords"          => MotCleResource::collection($this->mot_cles),
             "Reglement"         => new ReglementResource($this->reglements),
             "Text_Document"     => new TextDocumentResource($this->textDocument),

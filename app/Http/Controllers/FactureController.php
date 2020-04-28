@@ -6,6 +6,7 @@ use App\Facture;
 use App\Article;
 use App\FactureMotCle;
 use App\Http\Resources\FactureResource;
+use App\Http\Resources\PdfFactureResource;
 use App\MotCle;
 use App\Reglement;
 use App\Text_Document;
@@ -70,6 +71,7 @@ class FactureController extends Controller
 
         // add a new Facture
         $facture = new Facture();
+
         $facture->store($request, $text->id);
 
         // add new Reglement
@@ -77,7 +79,6 @@ class FactureController extends Controller
         $Reglement->store($request->reglement, $facture->id, null);
 
         // add a new Article
-
         foreach ($request->articles as $newArticles) {
             $article = new Article();
             $article->store($newArticles, $facture->id, null);
@@ -91,13 +92,13 @@ class FactureController extends Controller
             // don't add it again to the keyword table.
 
             if (!in_array($kwd['value'], $kwds)) {
-
                 array_push($kwds, $kwd['value']);
                 $keyword = MotCle::makeIfNotExist($kwd['value'], $request->user_id);
                 $factureMotCle = new FactureMotCle();
                 $factureMotCle->store($facture->id, $keyword->id);
             }
         }
+
         return $facture;
     }
 
@@ -163,9 +164,26 @@ class FactureController extends Controller
         Facture::destroy($id);
     }
 
+    public function finalise($id)
+    {
+        $facture = Facture::find($id);
+        $facture->finalise();
+    }
+
+    public function pay($id)
+    {
+        $facture = Facture::find($id);
+        $facture->pay();
+    }
+    public function unpay($id)
+    {
+        $facture = Facture::find($id);
+        $facture->unpay();
+    }
+
     public function exportPdf($id)
     {
-        $data = Facture::find($id);
+        $data = new PdfFactureResource(Facture::find($id));
 
         if ($data == null) {
             return abort(404);
@@ -173,6 +191,10 @@ class FactureController extends Controller
         if ($data->is_deleted) {
             return abort(404);
         }
+        if (!$data->is_finalised) {
+            return ["this Bill isn't finalised yet ."];
+        }
+
         $pdf = PDF::loadView('FactureData', compact('data'));
 
         return $pdf->download('invoice.pdf');
