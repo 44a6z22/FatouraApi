@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Compte_bancaire;
+use App\Parameter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompteBancaireController extends Controller
 {
@@ -15,13 +17,10 @@ class CompteBancaireController extends Controller
     public function index()
     {
         //
-        
 
-        $compte_bancaire= Compte_bancaire::all();
+
+        $compte_bancaire = Compte_bancaire::all();
         return $compte_bancaire;
-        
-
-        
     }
 
     /**
@@ -42,13 +41,12 @@ class CompteBancaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-        $compte_bancaire=new Compte_bancaire();
-        $compte_bancaire->IBAN=$request->input('IBAN');
-        $compte_bancaire->BIC=$request->input('BIC');
-        $compte_bancaire->Titulaire=$request->input('Titulaire');
-        $compte_bancaire->Libelle_Du_Compte=$request->input('Libelle_Du_Compte');
+        $compte_bancaire = new Compte_bancaire();
+        $compte_bancaire->user_id = Auth::user()->id;
+        $compte_bancaire->IBAN = $request->input('IBAN');
+        $compte_bancaire->BIC = $request->input('BIC');
+        $compte_bancaire->Titulaire = $request->input('Titulaire');
+        $compte_bancaire->Libelle_Du_Compte = $request->input('Libelle_Du_Compte');
         $compte_bancaire->save();
         return $compte_bancaire;
     }
@@ -73,7 +71,7 @@ class CompteBancaireController extends Controller
     public function edit($id)
     {
         //
-        
+
     }
 
     /**
@@ -86,13 +84,13 @@ class CompteBancaireController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $compte_bancaire= Compte_bancaire::find($id);
-        $compte_bancaire->IBAN=$request->input('IBAN');
-        $compte_bancaire->BIC=$request->input('BIC');
-        $compte_bancaire->Titulaire=$request->input('Titulaire');
-        $compte_bancaire->Libelle_Du_Compte=$request->input('Libelle_Du_Compte');
+        $compte_bancaire = Compte_bancaire::find($id);
+        $compte_bancaire->IBAN = $request->input('IBAN');
+        $compte_bancaire->BIC = $request->input('BIC');
+        $compte_bancaire->Titulaire = $request->input('Titulaire');
+        $compte_bancaire->Libelle_Du_Compte = $request->input('Libelle_Du_Compte');
         $compte_bancaire->save();
-        return ["updated with success",$compte_bancaire];
+        return ["updated with success", $compte_bancaire];
     }
 
     /**
@@ -104,10 +102,8 @@ class CompteBancaireController extends Controller
     public function destroy($id)
     {
         //
-        $compte_bancaire= Compte_bancaire::find($id);
+        $compte_bancaire = Compte_bancaire::find($id);
         $compte_bancaire->delete();
-        return ["removed with success",$compte_bancaire];
-
-
+        return ["removed with success", $compte_bancaire];
     }
 }

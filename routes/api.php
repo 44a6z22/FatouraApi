@@ -79,6 +79,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // paramaeters 
     Route::post("/settings/uids", "ParameterController@setNemurotation");
+
+    Route::resource("settings/bankAcounte", "CompteBancaireController");
 });
 
 
