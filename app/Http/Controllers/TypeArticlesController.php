@@ -15,8 +15,9 @@ class TypeArticlesController extends Controller
     public function index()
     {
         //
+        $this->authorize('index',Type_article::class);
         $type_article = Type_article::all();
-        return $type_article;
+        return $type_article;       
     }
 
     /**
@@ -38,6 +39,8 @@ class TypeArticlesController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->authorize('create',Type_article::class);
         $type_article = new Type_article();
 
         $type_article->article_type_value = $request->article_type_value;

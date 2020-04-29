@@ -40,7 +40,13 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::resource('/type_articles', "TypeArticlesController");
     Route::resource("clients", "ClientController");
     Route::resource("societes", "SocieteController");
+    Route::Resource("/roles", "RoleController");
+    Route::Resource("/users", "UserController");
+
+
     Route::Resource("/factures-acompte", "FactureAcompteController");
+
+
 
 
 
