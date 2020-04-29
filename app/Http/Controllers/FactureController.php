@@ -7,6 +7,7 @@ use App\Article;
 use App\FactureMotCle;
 use App\Http\Resources\FactureResource;
 use App\Http\Resources\PdfFactureResource;
+use App\lib\NumerotationConverter;
 use App\MotCle;
 use App\Reglement;
 use App\Text_Document;
@@ -72,7 +73,7 @@ class FactureController extends Controller
         // add a new Facture
         $facture = new Facture();
 
-        $facture->store($request, $text->id);
+        $facture->store($request, new NumerotationConverter, $text->id);
 
         // add new Reglement
         $Reglement = new Reglement();

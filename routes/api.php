@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 });
 
 
+Route::get('/factures/{id}/download', 'FactureController@exportPdf');
 // Downloading Pdfs 
 
 // Route::get('/factures/{id}/download', 'FactureController@exportPdf');

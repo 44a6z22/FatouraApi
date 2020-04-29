@@ -24,6 +24,7 @@ class FactureResource extends JsonResource
 
         return [
             "Facture_id"        => $this->id,
+            "Facture_uid"       => $this->uid,
             "User_id"           =>  $this->user_id,
             "Statut_id"         => $this->status_id,
             "Total_ht"          => array_sum($htArray),

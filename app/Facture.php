@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\lib\NumerotationConverter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,7 @@ class Facture extends Model
         return $this->belongsTo(FactureType::class);
     }
 
-    public function store(Request $request, $textId)
+    public function store(Request $request, NumerotationConverter $converter, $textId)
     {
         $ttc = $ht = $tva = 0;
         foreach ($request->articles as $article) {
@@ -63,7 +64,7 @@ class Facture extends Model
         $this->total_ht = $ht;
         $this->total_ttc = $ttc;
         $this->montant_tva = $tva;
-
+        $this->uid = $converter->convert("<doc><aa><cmp>", 'App\Facture', count(Auth::user()->factures) + 1);
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;
         $this->text_document_id = $textId;

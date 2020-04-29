@@ -31,6 +31,7 @@ class CreateFacturesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
 
+            $table->text('uid');
             $table->float("total_ht");
             $table->float("total_ttc");
             $table->float("montant_tva");
