@@ -90,11 +90,12 @@ class Devis extends Model
             $tva += $ht * ($article['tva'] / 100);
         }
         $format = Auth::user()->parameteres->first()->numerotationParameter->first()->format;
+        $length = intval(Auth::user()->parameteres->first()->numerotationParameter->first()->Min_compteur_valeur);
 
         $this->total_ht = $ht;
         $this->total_ttc = $ttc;
         $this->montant_tva = $tva;
-        $this->uid = $converter->convert($format, 'App\Devis', count(Auth::user()->devises) + 1);
+        $this->uid = $converter->convert($format, 'App\Devis', count(Auth::user()->devises) + 1, $length);
         $this->duree_validité = $request->duree_validite;
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;

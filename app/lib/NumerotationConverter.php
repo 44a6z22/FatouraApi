@@ -25,12 +25,11 @@ class NumerotationConverter
             "mm" => "04",
             "j" => "28",
             "jj" => "28",
-            "cmp" => "5",
         ];
     }
 
 
-    public function convert($format, $type, $count)
+    public function convert($format, $type, $count, $length)
     {
 
         $parts = explode('>', $format);
@@ -44,7 +43,7 @@ class NumerotationConverter
 
                 if ($sub == 'cmp') {
 
-                    for ($i = 0; $i < intval($this->codes[$sub]) - 1; $i++) {
+                    for ($i = 0; $i < $length - strlen(strval($count)); $i++) {
                         $newString .= '0';
                     }
 
