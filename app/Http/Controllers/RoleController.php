@@ -15,6 +15,9 @@ class RoleController extends Controller
     public function index()
     {
         //
+        $this->authorize('index',Role::class);
+        $roles=Role::all();
+        return $roles;
     }
 
     /**
@@ -36,6 +39,13 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+   
+        $this->authorize('create',Role::class);
+        $roles = new Role();
+        $roles->Role_value = $request->Role_value;
+        $roles->save();
+        return $roles;
+
     }
 
     /**
@@ -46,7 +56,10 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+    
+        $this->authorize('viewAny',Role::class);
+        $roles = Role::find($role);
+        return $roles;
     }
 
     /**
@@ -58,6 +71,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         //
+
     }
 
     /**
@@ -69,7 +83,12 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+
+        $this->authorize('update',Role::class);
+        $roles = Role::find($role)->first();
+        $roles->Role_value = $request->Role_value;
+        $roles->save();
+        return $roles;
     }
 
     /**
@@ -81,5 +100,8 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         //
+        $this->authorize('delete',Role::class);
+        $roles = Role::find($role)->first();
+        $roles->delete();
     }
 }
