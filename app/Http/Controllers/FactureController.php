@@ -198,6 +198,6 @@ class FactureController extends Controller
 
         $pdf = PDF::loadView('FactureData', compact('data'));
 
-        return $pdf->download('invoice.pdf');
+        return $pdf->download($data->uid . '.pdf');
     }
 }

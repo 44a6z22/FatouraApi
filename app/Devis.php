@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\lib\NumerotationConverter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +80,7 @@ class Devis extends Model
         $this->save();
     }
 
-    public function store(Request $request, $textId)
+    public function store(Request $request, NumerotationConverter $converter,  $textId)
     {
 
         $ttc = $ht = $tva = 0;
@@ -92,7 +93,7 @@ class Devis extends Model
         $this->total_ht = $ht;
         $this->total_ttc = $ttc;
         $this->montant_tva = $tva;
-
+        $this->uid = $converter->convert("<doc><aa><cmp>", 'App\Devis', count(Auth::user()->factures) + 1);
         $this->duree_validité = $request->duree_validite;
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;

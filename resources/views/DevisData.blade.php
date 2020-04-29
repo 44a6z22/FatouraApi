@@ -7,7 +7,7 @@
 					{{-- header  --}}
 					<tr >
 						<td style="padding-bottom:50px;" scope="row" width="50%">
-							<h1 id="title">Devis {{$data->id}} </h1>
+							<h1 id="title">Devis {{$data->uid}} </h1>
 							<h1 id="date">{{$data->created_at}}</h1>
 									
 						</td>

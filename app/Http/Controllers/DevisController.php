@@ -7,6 +7,7 @@ use App\Devis;
 use App\DevisMotCle;
 use App\FactureMotCle;
 use App\Http\Resources\DevisResource;
+use App\lib\NumerotationConverter;
 use App\MotCle;
 use App\Reglement;
 use App\Status;
@@ -55,14 +56,13 @@ class DevisController extends Controller
             return ["Status not found"];
         }
 
-
         // add a new  text Document
         $text = new Text_Document();
         $text->store($request->textDocument);
 
         // add a new Facture
         $devis = new Devis();
-        $devis->store($request, $text->id);
+        $devis->store($request, new NumerotationConverter,  $text->id);
 
         $Reglement = new Reglement();
         $Reglement->store($request->reglement, null, $devis->id);
@@ -198,6 +198,6 @@ class DevisController extends Controller
             compact('data')
         );
 
-        return $pdf->download('invoice.pdf');
+        return $pdf->download($data->uid . '.pdf');
     }
 }

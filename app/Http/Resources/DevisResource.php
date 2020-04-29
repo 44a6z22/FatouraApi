@@ -23,7 +23,8 @@ class DevisResource extends JsonResource
         }
 
         return [
-            "id"          => $this->id,
+            "Devis_id"          => $this->id,
+            "Devis_uid"         => $this->uid,
             "user_id"           => $this->user_id,
             "statut_id"         => $this->status_id,
             "durée_validité"    => $this->duree_validité,

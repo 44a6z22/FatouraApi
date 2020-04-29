@@ -31,7 +31,7 @@ class CreateDevisTable extends Migration
             $table->unsignedBigInteger('societe_id')->nullable();
             $table->foreign('societe_id')->references('id')->on('societes');
 
-
+            $table->text('uid');
             $table->integer('duree_validité');
             $table->float("total_ht");
             $table->float("total_ttc");
