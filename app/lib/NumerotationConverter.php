@@ -2,26 +2,33 @@
 
 namespace App\lib;
 
+use DateTime;
+
 class NumerotationConverter
 {
-    private $codes = [
-        "doc" => [
-            'App\Facture' => 'F',
-            'APP\FactureAcompte' => 'FA',
-            'App\Avoire' => 'A',
-            // 'App\AvoireAcompte' => 'AA',
-            'App\Devis' => 'D'
-        ],
-        "aa" => "20",
-        "aaaa" => "2020",
-        "m" => "4",
-        "mm" => "04",
-        "j" => "28",
-        "jj" => "28",
-        "cmp" => "5",
-    ];
 
-    private $types = [];
+    private $codes = [];
+    public function __construct()
+    {
+
+        $date = new DateTime;
+        $this->codes = [
+            "doc" => [
+                'App\Facture' => 'F',
+                'App\FactureAcompte' => 'FA',
+                'App\Avoire' => 'A',
+                'App\Devis' => 'D'
+            ],
+            "aa" => substr($date->format("Y"), 2),
+            "aaaa" => $date->format("Y"),
+            "m" => "4",
+            "mm" => "04",
+            "j" => "28",
+            "jj" => "28",
+            "cmp" => "5",
+        ];
+    }
+
 
     public function convert($format, $type, $count)
     {

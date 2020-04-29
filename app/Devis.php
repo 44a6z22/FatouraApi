@@ -93,7 +93,7 @@ class Devis extends Model
         $this->total_ht = $ht;
         $this->total_ttc = $ttc;
         $this->montant_tva = $tva;
-        $this->uid = $converter->convert("<doc><aa><cmp>", 'App\Devis', count(Auth::user()->factures) + 1);
+        $this->uid = $converter->convert("<doc><aaaaa><cmp>", 'App\Devis', count(Auth::user()->devises) + 1);
         $this->duree_validité = $request->duree_validite;
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\lib\NumerotationConverter;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Http\Client\Request;
 use Illuminate\Http\Request;
@@ -48,11 +49,12 @@ class FactureAcompte extends Model
     }
 
 
-    public function store(Request $request, $textId, $reglementId)
+    public function store(Request $request, NumerotationConverter $converter,  $textId, $reglementId)
     {
         $this->user_id = Auth::user()->id;
         $this->devis_id = $request->devis_id;
         $this->montant = $request->montant;
+        $this->uid = $converter->convert("<doc><aaaa><cmp>", 'App\FactureAcompte', count(Auth::user()->acomptes) + 1);
         $this->tva = $request->tva;
         $this->text_document_id = $textId;
         $this->reglement_id = $reglementId;

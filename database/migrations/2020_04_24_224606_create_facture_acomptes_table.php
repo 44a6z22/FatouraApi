@@ -33,6 +33,7 @@ class CreateFactureAcomptesTable extends Migration
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete("cascade");
 
+            $table->text("uid");
             $table->timestamp('payed_at')->nullable();
             $table->boolean('is_finalised')->default(false);
             $table->boolean('is_deleted')->default(false);

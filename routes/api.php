@@ -61,10 +61,10 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/devis/{id}/refuse', 'DevisController@refuse');
     Route::get('/devis/{id}/cancel-refuse', 'DevisController@cancelRefuse');
     Route::Delete("/devis/delete/physical/{id}", "DevisController@physicalDelete");
+    Route::get('/devis/{id}/download', 'DevisController@exportPdf');
 });
 
 
-Route::get('/devis/{id}/download', 'DevisController@exportPdf');
 // Downloading Pdfs 
 
 // Route::get('/factures/{id}/download', 'FactureController@exportPdf');

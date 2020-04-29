@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Devis;
 use App\FactureAcompte;
 use App\Http\Resources\FactureAcompteResource;
+use App\lib\NumerotationConverter;
 use App\Reglement;
 use App\Status;
 use App\Text_Document;
@@ -68,7 +69,7 @@ class FactureAcompteController extends Controller
 
         // adding facture d'acompte
         $factureAcompte = new FactureAcompte();
-        $factureAcompte->store($request, $text->id, $reglement->id);
+        $factureAcompte->store($request, new NumerotationConverter, $text->id, $reglement->id);
 
 
         return new FactureAcompteResource($factureAcompte);
@@ -165,6 +166,6 @@ class FactureAcompteController extends Controller
             'FactureAcompteData',
             compact('data')
         );
-        return $pdf->download('invoice.pdf');
+        return $pdf->download($data->uid . '.pdf');
     }
 }
