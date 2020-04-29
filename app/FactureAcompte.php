@@ -51,10 +51,12 @@ class FactureAcompte extends Model
 
     public function store(Request $request, NumerotationConverter $converter,  $textId, $reglementId)
     {
+        $format = Auth::user()->parameteres->first()->numerotationParameter->first()->format;
+
         $this->user_id = Auth::user()->id;
         $this->devis_id = $request->devis_id;
         $this->montant = $request->montant;
-        $this->uid = $converter->convert("<doc><aaaa><cmp>", 'App\FactureAcompte', count(Auth::user()->acomptes) + 1);
+        $this->uid = $converter->convert($format, 'App\FactureAcompte', count(Auth::user()->acomptes) + 1);
         $this->tva = $request->tva;
         $this->text_document_id = $textId;
         $this->reglement_id = $reglementId;

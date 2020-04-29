@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\NumerotationParameter;
 use App\Parameter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ParameterController extends Controller
 {
@@ -81,5 +83,28 @@ class ParameterController extends Controller
     public function destroy(Parameter $parameter)
     {
         //
+    }
+
+    public function setNemurotation(Request $request)
+    {
+        $params = null;
+        if (Parameter::get()->where('user_id', Auth::user()->id)->first() == null) {
+
+            $params = new Parameter();
+            $params->user_id = Auth::user()->id;
+            $params->path = $request->path;
+            $params->param_name = $request->name;
+            $params->save();
+        } else {
+            $params = Parameter::get()->where('user_id', Auth::user()->id)->first();
+        }
+
+        $num = new NumerotationParameter();
+        $num->parameter_id = $params->id;
+        $num->format = $request->num["format"];
+        $num->Min_compteur_valeur = $request->num["counter_init"];
+        $num->save();
+
+        return $num;
     }
 }

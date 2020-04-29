@@ -61,10 +61,12 @@ class Facture extends Model
             $tva += $ht * ($article['tva'] / 100);
         }
 
+        $format = Auth::user()->parameteres->first()->numerotationParameter->first()->format;
+
         $this->total_ht = $ht;
         $this->total_ttc = $ttc;
         $this->montant_tva = $tva;
-        $this->uid = $converter->convert("<doc><aa><cmp>", 'App\Facture', count(Auth::user()->factures) + 1);
+        $this->uid = $converter->convert($format, 'App\Facture', count(Auth::user()->factures) + 1);
         $this->client_id = $request->client_id;
         $this->societe_id = $request->societe_id;
         $this->text_document_id = $textId;

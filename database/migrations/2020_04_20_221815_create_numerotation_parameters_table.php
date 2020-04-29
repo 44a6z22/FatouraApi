@@ -15,8 +15,8 @@ class CreateNumerotationParametersTable extends Migration
     {
         Schema::create('numerotation_parameters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parametre_id');
-            $table->foreign('parametre_id')->references('id')->on('parameters');
+            $table->unsignedBigInteger('parameter_id');
+            $table->foreign('parameter_id')->references('id')->on('parameters');
             $table->text('format');
             $table->integer('Min_compteur_valeur');
             $table->timestamps();

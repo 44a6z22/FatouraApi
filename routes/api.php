@@ -62,6 +62,10 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/devis/{id}/cancel-refuse', 'DevisController@cancelRefuse');
     Route::Delete("/devis/delete/physical/{id}", "DevisController@physicalDelete");
     Route::get('/devis/{id}/download', 'DevisController@exportPdf');
+
+
+    // paramaeters 
+    Route::post("/settings/uids", "ParameterController@setNemurotation");
 });
 
 
