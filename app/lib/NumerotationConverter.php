@@ -23,8 +23,8 @@ class NumerotationConverter
             "aaaa" => $date->format("Y"),
             "m" => "4",
             "mm" => "04",
-            "j" => "28",
-            "jj" => "28",
+            "j" => $date->format("d"),
+            "jj" => $date->format("d"),
         ];
     }
 
@@ -33,13 +33,17 @@ class NumerotationConverter
     {
 
         $parts = explode('>', $format);
+        // remove  the last element.
+        unset($parts[count($parts) - 1]);
+
+        var_dump($parts);
 
         $newString  = $format;
         foreach ($parts as $part) {
 
             if ($part != "") {
 
-                $sub = preg_replace('/[^A-Za-z0-9\-]/', '', $part);
+                $sub = preg_replace('/[^a-zA-Z]/', '', $part);
 
                 if ($sub == 'cmp') {
 
@@ -50,15 +54,18 @@ class NumerotationConverter
                     $newString .= strval($count);
                     $newString = str_replace('<' . $sub . '>', '', $newString);
                 } else {
+                    $ok = "";
 
-                    // get a 2 degits number atleast regardless of the number 01, 02, 10 
+                    if ($this->codes[$sub] != null) {
 
-                    $ok = (intval($this->codes[$sub] < 10)) ?
-                        '0' . $this->codes[$sub] :
-                        $this->codes[$sub];
+                        // get a 2 degits number atleast regardless of the number 01, 02, 10 
+                        $ok = (intval($this->codes[$sub] < 10)) ?
+                            '0' . $this->codes[$sub] :
+                            $this->codes[$sub];
 
-                    if ($sub == 'doc') {
-                        $ok = $this->codes[$sub][$type];
+                        if ($sub == 'doc') {
+                            $ok = $this->codes[$sub][$type];
+                        }
                     }
 
                     $newString = str_replace('<' . $sub . '>', $ok, $newString);
