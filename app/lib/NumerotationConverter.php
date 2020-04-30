@@ -50,7 +50,12 @@ class NumerotationConverter
                     $newString .= strval($count);
                     $newString = str_replace('<' . $sub . '>', '', $newString);
                 } else {
-                    $ok = $this->codes[$sub];
+
+                    // get a 2 degits number atleast regardless of the number 01, 02, 10 
+
+                    $ok = (intval($this->codes[$sub] < 10)) ?
+                        '0' . $this->codes[$sub] :
+                        $this->codes[$sub];
 
                     if ($sub == 'doc') {
                         $ok = $this->codes[$sub][$type];

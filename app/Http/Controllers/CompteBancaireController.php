@@ -42,12 +42,7 @@ class CompteBancaireController extends Controller
     public function store(Request $request)
     {
         $compte_bancaire = new Compte_bancaire();
-        $compte_bancaire->user_id = Auth::user()->id;
-        $compte_bancaire->IBAN = $request->input('IBAN');
-        $compte_bancaire->BIC = $request->input('BIC');
-        $compte_bancaire->Titulaire = $request->input('Titulaire');
-        $compte_bancaire->Libelle_Du_Compte = $request->input('Libelle_Du_Compte');
-        $compte_bancaire->save();
+        $compte_bancaire->store($request);
         return $compte_bancaire;
     }
 
