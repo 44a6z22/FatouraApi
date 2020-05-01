@@ -27,6 +27,10 @@ class NumerotationTest extends TestCase
         $this->assertEquals("F2020003", $numC->convert("<doc><aaaa><cmp>", 'App\Facture', 3, 3));
         // $this->assertEquals("F30003", $numC->convert("<doc><j><cmp>", 'App\Facture', 3, 3));
         $this->assertEquals("F:20-003", $numC->convert("<doc>:<aa>-<cmp>", 'App\Facture', 3, 3));
+        $this->assertEquals("F:04-003", $numC->convert("<doc>:<m>-<cmp>", 'App\Facture', 3, 3));
+        $this->assertEquals("F:04-003", $numC->convert("<doc>:<mm>-<cmp>", 'App\Facture', 3, 3));
+        $this->assertEquals("F:30-003", $numC->convert("<doc>:<jj>-<cmp>", 'App\Facture', 3, 3));
+        $this->assertEquals("F:30-003", $numC->convert("<doc>:<j>-<cmp>", 'App\Facture', 3, 3));
         $this->assertEquals("F20<cmp", $numC->convert("<doc><aa><cmp", 'App\Facture', 3, 3));
     }
 }

@@ -8,10 +8,12 @@ class NumerotationConverter
 {
 
     private $codes = [];
+
     public function __construct()
     {
 
         $date = new DateTime;
+
         $this->codes = [
             "doc" => [
                 'App\Facture' => 'F',
@@ -21,8 +23,8 @@ class NumerotationConverter
             ],
             "aa" => substr($date->format("Y"), 2),
             "aaaa" => $date->format("Y"),
-            "m" => "4",
-            "mm" => "04",
+            "m" => $date->format("m"),
+            "mm" => $date->format("m"),
             "j" => $date->format("d"),
             "jj" => $date->format("d"),
         ];
@@ -36,9 +38,8 @@ class NumerotationConverter
         // remove  the last element.
         unset($parts[count($parts) - 1]);
 
-        var_dump($parts);
+        $convertedformat  = $format;
 
-        $newString  = $format;
         foreach ($parts as $part) {
 
             if ($part != "") {
@@ -48,30 +49,29 @@ class NumerotationConverter
                 if ($sub == 'cmp') {
 
                     for ($i = 0; $i < $length - strlen(strval($count)); $i++) {
-                        $newString .= '0';
+                        $convertedformat .= '0';
                     }
 
-                    $newString .= strval($count);
-                    $newString = str_replace('<' . $sub . '>', '', $newString);
+                    $convertedformat .= strval($count);
+                    $convertedformat = str_replace('<' . $sub . '>', '', $convertedformat);
                 } else {
-                    $ok = "";
 
+                    $ok = "";
                     if ($this->codes[$sub] != null) {
 
                         // get a 2 degits number atleast regardless of the number 01, 02, 10 
-                        $ok = (intval($this->codes[$sub] < 10)) ?
-                            '0' . $this->codes[$sub] :
-                            $this->codes[$sub];
+                        // $ok = (intval($this->codes[$sub] < 10)) ? '0' . $this->codes[$sub] : $this->codes[$sub];
 
+                        $ok = $this->codes[$sub];
                         if ($sub == 'doc') {
                             $ok = $this->codes[$sub][$type];
                         }
                     }
 
-                    $newString = str_replace('<' . $sub . '>', $ok, $newString);
+                    $convertedformat = str_replace('<' . $sub . '>', $ok, $convertedformat);
                 }
             }
         }
-        return $newString;
+        return $convertedformat;
     }
 }
