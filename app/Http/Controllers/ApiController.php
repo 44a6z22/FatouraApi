@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tests\Feature\NumerotationTest;
 
-class APIController extends Controller
+class ApiController extends Controller
 {
     /**
      * @var bool
