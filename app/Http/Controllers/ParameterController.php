@@ -87,7 +87,7 @@ class ParameterController extends Controller
 
     public function setNemurotation(Request $request)
     {
-        $parameter = Parameter::MakeIfNotExist();
+        $parameter = Parameter::MakeIfNotExist(Auth::user()->id);
         $parameter->store($request);
 
         $num = NumerotationParameter::MakeIfNotExist();

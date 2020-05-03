@@ -8,12 +8,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
+use App\lib\NumerotationConverter;
 use App\Mail\VerificationEmail;
+use App\NumerotationParameter;
+use App\Parameter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
+use Tests\Feature\NumerotationTest;
 
-class APIController extends Controller
+class ApiController extends Controller
 {
     /**
      * @var bool
@@ -100,6 +104,8 @@ class APIController extends Controller
             Mail::to(request('email'))->send(new VerificationEmail($user));
             return $this->login($request);
         }
+
+
 
         return response()->json([
             'success'   =>  true,

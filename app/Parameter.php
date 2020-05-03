@@ -26,12 +26,12 @@ class Parameter extends Model
         return $this->hasMany('App\CompteurDefault');
     }
 
-    public static function MakeIfNotExist()
+    public static function MakeIfNotExist($userId = null)
     {
-        if (Parameter::get()->where('user_id', Auth::user()->id)->first() == null) {
+        if (Parameter::get()->where('user_id', $userId)->first() == null) {
             return new Parameter();
         } else {
-            return Parameter::get()->where('user_id', Auth::user()->id)->first();
+            return Parameter::get()->where('user_id', $userId)->first();
         }
     }
 
