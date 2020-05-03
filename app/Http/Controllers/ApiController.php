@@ -11,6 +11,7 @@ use App\Http\Requests\RegistrationFormRequest;
 use App\Mail\VerificationEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class APIController extends Controller
 {
@@ -104,5 +105,7 @@ class APIController extends Controller
             'success'   =>  true,
             'data'      =>  $user
         ], 200);
+
+
     }
 }

@@ -26,13 +26,13 @@ class DatabaseSeeder extends Seeder
         $this->call(BankAccountSeeder::class);
 
         // $this->call()
-        $this->call(FactureSeeder::class);
+        // $this->call(FactureSeeder::class);
         // $this->call(DevisSeeder::class);
         $this->call(InteretRetardSeeder::class);
         // $this->call(BankAccountSeeder::class);
         $this->call(ConditionReglementSeeder::class);
         $this->call(ModeReglementSeeder::class);
-        $this->call(ReglementSeeder::class);
+        // $this->call(ReglementSeeder::class);
 
 
         $this->call(FactureAcompteSeeder::class);
