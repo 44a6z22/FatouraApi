@@ -91,12 +91,18 @@ class ApiController extends Controller
      */
     public function register(RegistrationFormRequest $request)
     {
+        $email_token =  Str::random(32);
+
+        while (count(User::get()->where('email_verification_token', $email_token)) != 0) {
+            $email_token = Str::random(32);
+        }
+
         $user = new User();
         $user->role_id = 1;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->email_verification_token = Str::random(32);
+        $user->email_verification_token = $email_token;
         $user->save();
 
         if ($this->loginAfterSignUp) {
