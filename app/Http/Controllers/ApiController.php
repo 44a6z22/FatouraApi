@@ -14,6 +14,7 @@ use App\NumerotationParameter;
 use App\Parameter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 use Tests\Feature\NumerotationTest;
 
 class ApiController extends Controller
@@ -110,5 +111,7 @@ class ApiController extends Controller
             'success'   =>  true,
             'data'      =>  $user
         ], 200);
+
+
     }
 }
