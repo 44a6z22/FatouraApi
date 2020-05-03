@@ -79,6 +79,9 @@ class Facture extends Model
         $this->save();
     }
 
+
+
+
     public function finalise()
     {
         $this->is_finalised = true;
