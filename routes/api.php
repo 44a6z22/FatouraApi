@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/factures-acompte/{id}/unpay', 'FactureAcompteController@unpay');
 
 
-    // paramaeters 
+    // Uids Parameters 
     Route::post("/settings/uids", "NumerotationParameterController@store");
     Route::get("/settings/uids", "NumerotationParameterController@index");
 
@@ -86,6 +86,9 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     // General Preferences 
     Route::post('settings/general', "FactureDefaultController@store");
     Route::get('settings/general', "FactureDefaultController@index");
+
+    // User Parameters
+    Route::post("settings/change-password", "UserController@updatePassowrd");
 });
 
 

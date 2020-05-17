@@ -101,4 +101,24 @@ class UserController extends Controller
         $users->delete();
         return $users;
     }
+
+
+    public function updatePassowrd(Request $request)
+    {
+        // check if it's the same email .
+        if (Auth::user()->email != $request->email) {
+            return ["not the same email"];
+        }
+
+        $user = User::find(Auth::user()->id);
+
+        // check if it's the same password .
+        if (!$user->verifyPassword($request->oldPassword, $request->comfirmOldPassword)) {
+            return ['not the same password'];
+        }
+
+        $user->updatePassword($request);
+
+        return $user;
+    }
 }

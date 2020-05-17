@@ -4,7 +4,9 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -100,5 +102,17 @@ class User extends Authenticatable implements JWTSubject
     public function type_article()
     {
         return $this->hasMany(Type_article::class);
+    }
+
+
+    public function verifyPassword($password, $password1)
+    {
+        return ($password === $password1) ? true : false;
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->password = bcrypt($request->newPassword);
+        $this->save();
     }
 }
