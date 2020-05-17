@@ -117,7 +117,5 @@ class ApiController extends Controller
             'success'   =>  true,
             'data'      =>  $user
         ], 200);
-
-
     }
 }

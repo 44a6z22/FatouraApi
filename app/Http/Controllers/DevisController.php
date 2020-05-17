@@ -127,11 +127,103 @@ class DevisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $devis = Devis::find($id);
-        $devis->duree_validité = $request->input('duree_validité');
+
+        //cheking if the facture is finalised
+        if ($devis->is_finalised === 1) {
+            return "Sorry but this facture is already finalised";
+        }
+
+        //Updating  the Devis  client,societe,Status,duree_validité
+        $devis->client_id = $request->client_id;
+        $devis->societe_id = $request->societe_id;
+        $devis->status_id = $request->status_id;
+        $devis->duree_validité = $request->duree_validite;
+
+
+
+        // Updating  the facture reglement 
+
+        $reglement_id = $devis->reglements()->get()[0]->id;
+        $reglement = Reglement::find($reglement_id);
+        $reglement->mode_reglement_id = $request["Reglement"]["mode_reglement_id"];
+        $reglement->condition_reglement_id = $request["Reglement"]["condition_reglement_id"];
+        $reglement->interet_retard_id = $request["Reglement"]["interet_retard_id"];
+        $reglement->compte_bancaire_id = $request["Reglement"]["compte_bancaire_id"];
+        $reglement->save();
+
+
+
+        //Updating  And adding if there is new  Articles to the Devis
+
+        $Acd = count($devis["Articles"]);
+        $Ajd = count($request->Articles);
+
+        for ($i = 0; $i < $Acd; $i++) {
+            $articles = Article::find($devis["Articles"][$i]->id);
+            $articles->quantité = $request->Articles[$i]["quantité"];
+            $articles->type_articles_id = $request->Articles[$i]["type_article_id"];
+            $articles->prix_ht = $request->Articles[$i]["prix_ht"];
+            $articles->tva = $request->Articles[$i]["tva"];
+            $articles->reduction = $request->Articles[$i]["reduction"];
+            $articles->total_ht = $request->Articles[$i]["total_ht"];
+            $articles->total_ttc = $request->Articles[$i]["total_ttc"];
+            $articles->description = $request->Articles[$i]["description"];
+            $articles->save();
+        }
+
+
+
+        if ($Acd !== $Ajd) {
+
+            for ($j = $Acd; $j < $Ajd; $j++) {
+                $article = new Article();
+                $article->type_articles_id = $request->Articles[$j]["type_article_id"];
+                $article->devis_id = $id;
+                $article->quantité = $request->Articles[$j]["quantité"];
+                $article->prix_ht = $request->Articles[$j]["prix_ht"];
+                $article->tva = $request->Articles[$j]["tva"];
+                $article->reduction = $request->Articles[$j]["reduction"];
+                $article->total_ht = $request->Articles[$j]["total_ht"];
+                $article->total_ttc = $request->Articles[$j]["total_ttc"];
+                $article->description = $request->Articles[$j]["description"];
+                $article->save();
+            }
+        }
+
+
+        //Updating text on the document 
+
+        $textdocId = $devis->textDocument()->get()[0]->id;
+        $textDoc = Text_Document::find($textdocId);
+        $textDoc->Introduction = $request["Text_Document"]["introduction"];
+        $textDoc->Conclusion = $request["Text_Document"]["conclusion"];
+        $textDoc->Pied_page = $request["Text_Document"]["footer"];
+        $textDoc->Condition_general = $request["Text_Document"]["condition"];
+        $textDoc->save();
+
+
+        //Removing old  And Adding New  keyWords : 
+        $keyword = MotCle::where('user_id', '=', Auth::user()->id);
+        $keyword->delete();
+
+        $kwds = [];
+        foreach ($request->motCles as $kwd) {
+            if (!in_array($kwd['value'], $kwds)) {
+                array_push($kwds, $kwd['value']);
+                $keyword = MotCle::makeIfNotExist($kwd['value'], $request->user_id);
+                $devisMotCle = new DevisMotCle();
+                $devisMotCle->store($devis->id, $keyword->id);
+            }
+        }
+
+
+
         $devis->save();
-        return $devis;
+        // $devis = Devis::find($id);
+        // $devis->duree_validité = $request->input('duree_validité');
+        // $devis->save();
+        // return $devis;
     }
 
     /**
