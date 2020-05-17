@@ -16,6 +16,7 @@ class FactureAcompteResource extends JsonResource
     {
         return [
             "id" => $this->id,
+            "uid" => $this->uid,
             "user_id" => $this->user_id,
             "devis_id" => $this->devis_id,
             "montant" => $this->montant,

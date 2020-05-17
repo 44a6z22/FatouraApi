@@ -19,7 +19,7 @@ class CompteBancaireController extends Controller
         //
 
 
-        $compte_bancaire = Compte_bancaire::all();
+        $compte_bancaire = Compte_bancaire::all()->where('user_id', Auth::user()->id);
         return $compte_bancaire;
     }
 
@@ -80,11 +80,7 @@ class CompteBancaireController extends Controller
     {
         //
         $compte_bancaire = Compte_bancaire::find($id);
-        $compte_bancaire->IBAN = $request->input('IBAN');
-        $compte_bancaire->BIC = $request->input('BIC');
-        $compte_bancaire->Titulaire = $request->input('Titulaire');
-        $compte_bancaire->Libelle_Du_Compte = $request->input('Libelle_Du_Compte');
-        $compte_bancaire->save();
+        $compte_bancaire->store($request);
         return ["updated with success", $compte_bancaire];
     }
 

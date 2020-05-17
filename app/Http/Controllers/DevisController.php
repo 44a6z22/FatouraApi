@@ -270,11 +270,19 @@ class DevisController extends Controller
 
     public function exportPdf($id)
     {
-        $data = new DevisResource(Devis::find($id));
+        $data = Devis::find($id);
 
+        // check if the thing exist.
         if ($data == null) {
-            return abort(404);
+            return $data;
         }
+
+        // check if the user owns the thing 
+        if ($data->user->id != Auth::user()->id) {
+            return ["not your bro"];
+        }
+
+
         if ($data->is_deleted) {
             return abort(404);
         }

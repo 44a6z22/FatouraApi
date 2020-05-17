@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Type_article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TypeArticlesController extends Controller
 {
@@ -17,7 +18,12 @@ class TypeArticlesController extends Controller
     {
         //
         // $this->authorize('index', Type_article::class);
-        $type_article = Type_article::all()->where('user_id', Auth::user()->id);
+
+        // show the defaults Articles and the ones that been added by the logged user. 
+        $type_article = DB::table('type_articles')
+            ->where('user_id', '=', null)
+            ->orWhere('user_id', '=', Auth::user()->id)
+            ->get();
 
         return $type_article;
     }
@@ -83,7 +89,23 @@ class TypeArticlesController extends Controller
     {
         //
         $type_article = Type_article::find($id);
+
+        // check if this article is original. or a user created it. 
+        if ($type_article->user == null) {
+            return ["can't Update the default Articles."];
+        }
+
+        // if a user created it. make sure it's the same user that wanna delete it. 
+        if ($type_article->user->id != Auth::user()->id) {
+            return ["
+                Can't Update this .
+            "];
+        }
+
+        // when all verifications go well. Update the article type. 
         $type_article->store($request);
+
+        return $type_article;
     }
 
     /**
@@ -94,14 +116,25 @@ class TypeArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
-
+        // get the Article type. 
         $type_article = Type_article::find($id);
+
+        // check if this article is original. or a user created it. 
+        if ($type_article->user == null) {
+            return ["can't delete the default Articles."];
+        }
+
+        // if a user created it. make sure it's the same user that wanna delete it. 
         if ($type_article->user->id != Auth::user()->id) {
             return ["
                 Can't delete this .
             "];
         }
+
+
+        // when all verifications go well. delete the article type. 
         $type_article->delete();
+
+        return ['deleted Successfuly'];
     }
 }
