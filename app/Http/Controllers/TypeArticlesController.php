@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Type_article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TypeArticlesController extends Controller
 {
@@ -15,9 +16,10 @@ class TypeArticlesController extends Controller
     public function index()
     {
         //
-        $this->authorize('index',Type_article::class);
-        $type_article = Type_article::all();
-        return $type_article;       
+        // $this->authorize('index', Type_article::class);
+        $type_article = Type_article::all()->where('user_id', Auth::user()->id);
+
+        return $type_article;
     }
 
     /**
@@ -40,13 +42,10 @@ class TypeArticlesController extends Controller
     {
         //
 
-        $this->authorize('create',Type_article::class);
+        // $this->authorize('create', Type_article::class);
         $type_article = new Type_article();
+        $type_article->store($request);
 
-        $type_article->article_type_value = $request->article_type_value;
-        $type_article->article_type_value_eng = $request->article_type_value_eng;
-
-        $type_article->save();
         return $type_article;
     }
 
@@ -84,9 +83,7 @@ class TypeArticlesController extends Controller
     {
         //
         $type_article = Type_article::find($id);
-        $type_article->article_type_value = $request->input('article_type_value');
-        $type_article->article_type_value_eng = $request->input('article_type_value_eng');
-        $type_article->save();
+        $type_article->store($request);
     }
 
     /**
@@ -98,7 +95,13 @@ class TypeArticlesController extends Controller
     public function destroy($id)
     {
         //
+
         $type_article = Type_article::find($id);
+        if ($type_article->user->id != Auth::user()->id) {
+            return ["
+                Can't delete this .
+            "];
+        }
         $type_article->delete();
     }
 }

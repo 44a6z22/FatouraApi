@@ -97,4 +97,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(MotCle::class);
     }
+    public function type_article()
+    {
+        return $this->hasMany(Type_article::class);
+    }
 }

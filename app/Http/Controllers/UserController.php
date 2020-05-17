@@ -6,6 +6,7 @@ use App\Policies\UsersPolicy;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,9 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',User::class);
-        $users = User::all();
-        return $users;
+        // $this->authorize('view', User::class);
+        // $users = User::all();
+        return Auth::user();
     }
 
     /**
@@ -51,7 +52,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        $this->authorize('viewAny',User::class);
+        $this->authorize('viewAny', User::class);
         $users = User::find($user);
         return $users;
     }
@@ -77,13 +78,12 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
-        $this->authorize('update',User::class);
+        $this->authorize('update', User::class);
         $users = User::find($user)->first();
-        $users->name=$request->name;
-        $users->email=$request->email;
+        $users->name = $request->name;
+        $users->email = $request->email;
         $users->save();
         return $users;
-
     }
 
     /**
@@ -96,10 +96,9 @@ class UserController extends Controller
     {
         //
 
-        $this->authorize('delete',User::class);
+        $this->authorize('delete', User::class);
         $users = User::find($user)->first();
         $users->delete();
         return $users;
-
     }
 }

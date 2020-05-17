@@ -15,8 +15,12 @@ class CreateTypeArticlesTable extends Migration
     {
         Schema::create('type_articles', function (Blueprint $table) {
             $table->id();
-            $table->text('article_type_value');	
-            $table->text('article_type_value_eng');	
+
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->foreign("user_id")->references("id")->on("users");
+
+            $table->text('article_type_value');
+            $table->text('article_type_value_eng');
             $table->timestamps();
         });
     }
