@@ -12,4 +12,10 @@ class Interet_retard extends Model
     {
         return $this->hasMany(Reglement::class);
     }
+
+    public function
+    default()
+    {
+        return $this->hasOne(FactureDefault::class);
+    }
 }

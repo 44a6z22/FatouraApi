@@ -77,8 +77,11 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
 
     // paramaeters 
-    Route::post("/settings/uids", "ParameterController@setNemurotation");
+    Route::post("/settings/uids", "NumerotationParameterController@store");
+    Route::get("/settings/uids", "NumerotationParameterController@index");
     Route::resource("settings/bankAccount", "CompteBancaireController");
+    Route::post('settings/general', "FactureDefaultController@store");
+    Route::get('settings/general', "FactureDefaultController@index");
 });
 
 

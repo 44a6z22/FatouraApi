@@ -46,7 +46,7 @@ class VerifyController extends Controller
         // parameter Init
         $p->user_id = $user1->id;
         $p->path = "default";
-        $p->Param_Name = "default";
+        $p->Param_Name = "default " . User::get()->where('email_verification_token', $token)->first()->name;
         $p->save();
 
         // set default Numerotation Format and counter

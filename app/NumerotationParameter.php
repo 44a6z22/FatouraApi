@@ -29,7 +29,8 @@ class NumerotationParameter extends Model
 
     public function store(Request $request)
     {
-        $this->parameter_id = Auth::user()->parameteres->first()->id;
+        $parameter = Parameter::MakeIfNotExist(Auth::user()->id);
+        $this->parameter_id = $parameter->id;
         $this->format = $request->num["format"];
         $this->Min_compteur_valeur = $request->num["counter_init"];
         $this->save();

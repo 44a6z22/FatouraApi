@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\FactureDefault;
+use App\Parameter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FactureDefaultController extends Controller
 {
@@ -15,6 +17,7 @@ class FactureDefaultController extends Controller
     public function index()
     {
         //
+        return FactureDefault::get()->where('parameter_id', Auth::user()->parameteres->first()->id);
     }
 
     /**
@@ -36,6 +39,10 @@ class FactureDefaultController extends Controller
     public function store(Request $request)
     {
         //
+        $defaults = FactureDefault::MakeIfNotExist();
+        $defaults->store($request);
+
+        return $defaults;
     }
 
     /**
