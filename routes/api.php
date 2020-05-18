@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
+// juste testing the posting
 
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
