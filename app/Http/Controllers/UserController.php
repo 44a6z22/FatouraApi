@@ -81,11 +81,27 @@ class UserController extends Controller
     {
         //
         $this->authorize('update', User::class);
-        $users = User::find($user)->first();
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->save();
-        return $users;
+        $id=Auth::user()->id;
+        $user = User::find($id);
+        $user->User_Nom_Societe=$request->User_Nom_Societe;
+        $user->User_Identifiant_Fiscale=$request->User_Identifiant_Fiscale;
+        $user->User_Identifiant_Commun_Entreprise=$request->User_Identifiant_Commun_Entreprise;
+        $user->User_Taxe_Professionnele=$request->User_Taxe_Professionnele;
+        $user->User_Code_Postal=$request->User_Code_Postal;
+        $user->User_Ville=$request->User_Ville;
+        $user->User_Site_Internet=$request->User_Site_Internet;
+        $user->save();
+        return $user;
+
+
+
+
+
+
+        // $users = User::find($user)->first();
+        // $users->name = $request->name;
+        // $users->email = $request->email;
+        // $users->save();
     }
 
     /**
