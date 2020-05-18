@@ -110,6 +110,11 @@ class User extends Authenticatable implements JWTSubject
         return ($password === $password1) ? true : false;
     }
 
+    public function markDeleted()
+    {
+        $this->is_deleted = 1;
+        return $this->save();
+    }
     public function updatePassword(Request $request)
     {
         $this->password = bcrypt($request->newPassword);

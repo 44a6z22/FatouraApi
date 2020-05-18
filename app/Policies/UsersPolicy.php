@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class UsersPolicy
 {
     use HandlesAuthorization;
-
+    protected $userId = 2;
     /**
      * Determine whether the user can view any models.
      *
@@ -18,8 +18,7 @@ class UsersPolicy
     public function viewAny(User $user)
     {
         //
-        return  $user->role_id===2;
-
+        return  $user->role_id === $this->userId;
     }
 
     /**
@@ -31,11 +30,10 @@ class UsersPolicy
      */
     public function view(User $user)
     {
-    
-        return  $user->role_id===2;
 
+        return  $user->role_id === $this->userId;
     }
-  
+
 
     /**
      * Determine whether the user can create models.
@@ -58,8 +56,7 @@ class UsersPolicy
     public function update(User $user)
     {
         //
-        return  $user->role_id===2;
-
+        return  $user->role_id === $this->userId;
     }
 
     /**
@@ -72,8 +69,7 @@ class UsersPolicy
     public function delete(User $user)
     {
         //
-        return  $user->role_id===2;
-
+        return  $user->role_id === $this->userId;
     }
 
     /**

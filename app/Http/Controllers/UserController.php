@@ -7,6 +7,8 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -92,16 +94,37 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id, Request $request)
     {
-        //
-
         $this->authorize('delete', User::class);
-        $users = User::find($user)->first();
-        $users->delete();
-        return $users;
+        $users = User::find($id);
+        // dd($users);
+        if ($users->id != Auth::user()->id) {
+            return ["you can't delete this user."];
+        }
+
+        $users->markDeleted();
+
+        $this->logoff($request->token);
+        return ['Deleted'];
     }
 
+    public function logoff($token)
+    {
+        try {
+            JWTAuth::invalidate($token);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User logged out successfully'
+            ]);
+        } catch (JWTException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the user cannot be logged out'
+            ], 500);
+        }
+    }
 
     public function updatePassowrd(Request $request)
     {

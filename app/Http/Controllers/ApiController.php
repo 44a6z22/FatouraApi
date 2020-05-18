@@ -33,7 +33,23 @@ class ApiController extends Controller
         $input = $request->only('email', 'password');
         $token = null;
 
+        // if account email isn't verified
+        if (!User::where("email", $request->email)->get()->first()->email_verified) {
+            return response()->json([
+                'success' => false,
+                // 'token' => $token,
+                'reason' => 'your email is not verified yet'
+            ]);
+        }
 
+        // if account email is deleted
+        if (User::where("email", $request->email)->get()->first()->is_deleted == 1) {
+            return response()->json([
+                'success' => false,
+                // 'token' => $token,
+                'reason' => 'your account is deleted'
+            ]);
+        }
 
         // if cordinate are wrong
         if (!$token = JWTAuth::attempt($input)) {
@@ -42,17 +58,6 @@ class ApiController extends Controller
                 'message' => 'Invalid Email or Password',
             ], 401);
         }
-
-
-        // if account email isn't verified
-        if (!Auth::user()->email_verified) {
-            return response()->json([
-                'success' => false,
-                // 'token' => $token,
-                'reason' => 'your email is not verified yet'
-            ]);
-        }
-
 
         return response()->json([
             'success' => true,
