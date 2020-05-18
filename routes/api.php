@@ -46,7 +46,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::Resource("/roles", "RoleController");
     Route::Resource("/users", "UserController");
 
-    Route::resource("/settings/text", "TextDocumentParameterController");
     Route::Resource("/factures-acompte", "FactureAcompteController");
 
     /// Facture Resource 
@@ -90,4 +89,9 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     // User Parameters
     Route::post("settings/change-password", "UserController@updatePassowrd");
     Route::post("settings/update-user", "UserController@update");
+
+    // text document Parameter 
+    Route::post("/settings/text", "TextDocumentParameterController@store");
+    Route::get("/settings/text", "TextDocumentParameterController@index");
+    Route::get("/settings/text/{id}", "TextDocumentParameterController@show");
 });

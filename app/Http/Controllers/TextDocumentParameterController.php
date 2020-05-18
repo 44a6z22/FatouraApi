@@ -51,7 +51,10 @@ class TextDocumentParameterController extends Controller
     public function show($id)
     {
         //
-        return TextDocumentParameter::where('type_text_document_parameter_id', $id)->get()->first();
+        return TextDocumentParameter::where('type_text_document_parameter_id', $id)
+            ->where('parameter_id', Auth::user()->parameteres->first()->id)
+            ->get()
+            ->first();
     }
 
     /**
