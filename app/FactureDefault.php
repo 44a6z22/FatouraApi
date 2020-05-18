@@ -29,6 +29,11 @@ class FactureDefault extends Model
         return $this->belongsTo(Interet_retard::class);
     }
 
+    public function type_article()
+    {
+        return $this->belongsTo(Type_article::class);
+    }
+
     public static function MakeIfNotExist()
     {
         if (FactureDefault::all()->Where('parameter_id', Auth::user()->parameteres->first()->id)->first() != null) {
@@ -43,6 +48,7 @@ class FactureDefault extends Model
         $parameter = Parameter::MakeIfNotExist(Auth::user()->id);
 
         $this->parameter_id = $parameter->id;
+        $this->type_article_id = $request->type_article_id;
         $this->tva_value = $request->tva_value;
         $this->text_tva_on = $request->text_tva_on;
         $this->text_tva_off = $request->text_tva_off;

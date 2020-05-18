@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class Type_article extends Model
 {
     //
+    public function facture_default()
+    {
+        return $this->hasMany(FactureDefault::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
