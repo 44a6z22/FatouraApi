@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 class Parameter extends Model
 {
     //
+
+    public function text_document_parameter()
+    {
+        return $this->hasMany(TextDocumentParameter::class);
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
