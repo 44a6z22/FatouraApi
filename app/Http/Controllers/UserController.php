@@ -81,15 +81,15 @@ class UserController extends Controller
     {
         //
         $this->authorize('update', User::class);
-        $id=Auth::user()->id;
+        $id = Auth::user()->id;
         $user = User::find($id);
-        $user->User_Nom_Societe=$request->User_Nom_Societe;
-        $user->User_Identifiant_Fiscale=$request->User_Identifiant_Fiscale;
-        $user->User_Identifiant_Commun_Entreprise=$request->User_Identifiant_Commun_Entreprise;
-        $user->User_Taxe_Professionnele=$request->User_Taxe_Professionnele;
-        $user->User_Code_Postal=$request->User_Code_Postal;
-        $user->User_Ville=$request->User_Ville;
-        $user->User_Site_Internet=$request->User_Site_Internet;
+        $user->User_Nom_Societe = $request->User_Nom_Societe;
+        $user->User_Identifiant_Fiscale = $request->User_Identifiant_Fiscale;
+        $user->User_Identifiant_Commun_Entreprise = $request->User_Identifiant_Commun_Entreprise;
+        $user->User_Taxe_Professionnele = $request->User_Taxe_Professionnele;
+        $user->User_Code_Postal = $request->User_Code_Postal;
+        $user->User_Ville = $request->User_Ville;
+        $user->User_Site_Internet = $request->User_Site_Internet;
         $user->save();
         return $user;
 
@@ -113,7 +113,9 @@ class UserController extends Controller
     public function destroy($id, Request $request)
     {
         $this->authorize('delete', User::class);
+
         $users = User::find($id);
+
         // dd($users);
         if ($users->id != Auth::user()->id) {
             return ["you can't delete this user."];
@@ -122,6 +124,7 @@ class UserController extends Controller
         $users->markDeleted();
 
         $this->logoff($request->token);
+
         return ['Deleted'];
     }
 

@@ -56,6 +56,8 @@ class Client extends Model
 
         $this->Client_Prenom = $request->Client_Prenom;
 
+        $this->Client_email = $request->Client_email;
+
         $this->Client_Ville = $request->Client_Ville;
 
         $this->Client_Code_Postal = $request->Client_Code_Postal;

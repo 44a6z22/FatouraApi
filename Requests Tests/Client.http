@@ -17,6 +17,7 @@ Content-Type: application/json
     "societe_id": null,
     "Client_Nom": "Casimir O'Keefe",
     "Client_Prenom": "zieme.kellie@example.com",
+    "Client_email": "zieme.kellie@example.com",
     "Client_Ville": "South Michel",
     "Client_Code_Postal": 2920473,
     "Client_Pays": "Israel",
