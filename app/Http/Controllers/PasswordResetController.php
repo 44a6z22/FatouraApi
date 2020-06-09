@@ -12,12 +12,7 @@ use App\PasswordReset;
 
 class PasswordResetController extends Controller
 {
-    /**
-     * Create token password reset
-     *
-     * @param  [string] email
-     * @return [string] message
-     */
+    
     public function create(Request $request)
     {
         $request->validate([

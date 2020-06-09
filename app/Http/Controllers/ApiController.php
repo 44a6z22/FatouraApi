@@ -33,6 +33,15 @@ class ApiController extends Controller
         $input = $request->only('email', 'password');
         $token = null;
 
+
+        // if cordinate are wrong
+        if (!$token = JWTAuth::attempt($input)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid Email or Password',
+            ], 401);
+        }
+
         // if account email isn't verified
         if (!User::where("email", $request->email)->get()->first()->email_verified) {
             return response()->json([
@@ -51,13 +60,7 @@ class ApiController extends Controller
             ]);
         }
 
-        // if cordinate are wrong
-        if (!$token = JWTAuth::attempt($input)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid Email or Password',
-            ], 401);
-        }
+
 
         return response()->json([
             'success' => true,
