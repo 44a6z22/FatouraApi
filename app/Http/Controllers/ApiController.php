@@ -100,6 +100,19 @@ class ApiController extends Controller
      */
     public function register(RegistrationFormRequest $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6'
+        ]);
+
+        // if (User::where("email", $request->email)->get()->first() != null) {
+        //     return response()->json([
+        //         "success" => false,
+        //         "message" => "email Already taken."
+        //     ], 401);
+        // }
+
         $email_token =  Str::random(32);
 
         while (count(User::get()->where('email_verification_token', $email_token)) != 0) {
@@ -114,10 +127,10 @@ class ApiController extends Controller
         $user->email_verification_token = $email_token;
         $user->save();
 
-        if ($this->loginAfterSignUp) {
-            Mail::to(request('email'))->send(new VerificationEmail($user));
-            return $this->login($request);
-        }
+        // if ($this->loginAfterSignUp) {
+        // return $this->login($request);
+        // }
+        Mail::to(request('email'))->send(new VerificationEmail($user));
 
 
 
