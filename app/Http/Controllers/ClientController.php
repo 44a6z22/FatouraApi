@@ -10,14 +10,18 @@ use App\MotCle;
 use App\Numtele;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class ClientController extends Controller
 {
     public function index()
     {
-        //
-        return ClientResource::collection(Client::all()->where('is_deleted', false));
+        return ClientResource::collection(
+            Client::all()
+                ->where('is_deleted', false)
+                ->where('user_id', Auth::user()->id)
+        );
     }
 
 
