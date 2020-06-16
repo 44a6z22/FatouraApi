@@ -9,6 +9,7 @@ use App\Numtele;
 use App\Societe;
 use App\SocieteMotCle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SocieteController extends Controller
 {
@@ -20,7 +21,11 @@ class SocieteController extends Controller
     public function index()
     {
         //
-        return SocieteResource::collection(Societe::all()->where("is_deleted", false));
+        return SocieteResource::collection(
+            Societe::all()
+                ->where("is_deleted", false)
+                ->where("user_id", Auth::user()->id)
+        );
     }
 
 

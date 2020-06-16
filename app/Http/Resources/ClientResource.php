@@ -14,10 +14,13 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
+        $sos = null;
+        if ($this->societe_id != null) {
+            $sos = new SocieteResource($this->societe);
+        }
         return [
             "id"                    => $this->id,
             "user_id"               => $this->user_id,
-            "societe_id"            => $this->societe_id,
             "Client_Nom"            => $this->Client_Nom,
             "Client_Prenom"         => $this->Client_Prenom,
             "Client_Email"          => $this->Client_email,
@@ -28,6 +31,7 @@ class ClientResource extends JsonResource
             "Client_SiteInternet"   => $this->Client_SiteInternet,
             "Client_Note"           => $this->Client_Note,
 
+            "societe"               => $sos,
             "Adresses"              => AdressResource::collection($this->adresses),
             "Phones"                => PhoneNumberResource::collection($this->nums),
             "keywords"              => MotCleResource::collection($this->mot_cles)
