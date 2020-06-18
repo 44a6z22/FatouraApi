@@ -17,7 +17,7 @@ class FactureDefaultController extends Controller
     public function index()
     {
         //
-        return FactureDefault::get()->where('parameter_id', Auth::user()->parameteres->first()->id);
+        return FactureDefault::where('parameter_id', Auth::user()->parameteres->first()->id)->get();
     }
 
     /**

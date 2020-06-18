@@ -9,15 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class NumerotationParameterController extends Controller
 {
-   
+
     public function index()
     {
         //
-        return NumerotationParameter::get()
-            ->where('parameter_id', Auth::user()->parameteres->first()->id);
+        return NumerotationParameter::where('parameter_id', Auth::user()->parameteres->first()->id)->get();
     }
 
-   
+
     public function store(Request $request)
     {
 
@@ -27,10 +26,10 @@ class NumerotationParameterController extends Controller
         return $num;
     }
 
-   
-   
- 
-   
+
+
+
+
     public function destroy(NumerotationParameter $numerotationParameter)
     {
         //

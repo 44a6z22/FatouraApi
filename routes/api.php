@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::Resource("/roles", "RoleController");
     Route::Resource("/users", "UserController");
 
+    Route::get('/amount-unit', 'AmountUnitController@index');
+
     Route::Resource("/factures-acompte", "FactureAcompteController");
 
     /// Facture Resource 

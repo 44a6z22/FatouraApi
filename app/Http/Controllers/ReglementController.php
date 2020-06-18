@@ -9,36 +9,37 @@ use App\Interet_retard;
 use App\Mode_reglement;
 use App\Reglement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReglementController extends Controller
 {
-   
+
     public function index()
     {
         //
         return ReglementResource::collection(Reglement::all());
     }
 
-   
+
     public function show(Reglement $reglement)
     {
         //
         return new ReglementResource($reglement);
     }
 
-  
+
     public function edit($id)
     {
         //
     }
 
-   
+
     public function update(Request $request, $id)
     {
         //
     }
 
-  
+
     public function destroy($id)
     {
         //

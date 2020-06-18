@@ -31,8 +31,8 @@ class NumerotationParameter extends Model
     {
         $parameter = Parameter::MakeIfNotExist(Auth::user()->id);
         $this->parameter_id = $parameter->id;
-        $this->format = $request->num["format"];
-        $this->Min_compteur_valeur = $request->num["counter_init"];
+        $this->format = $request->format;
+        $this->Min_compteur_valeur = $request->min_counter_value;
         $this->save();
     }
 }
