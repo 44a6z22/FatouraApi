@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
+use App\Http\Resources\UserResource;
 use App\lib\NumerotationConverter;
 use App\Mail\VerificationEmail;
 use App\NumerotationParameter;
@@ -42,8 +43,10 @@ class ApiController extends Controller
             ], 401);
         }
 
+        $user = User::where("email", $request->email)->get()->first();
+
         // if account email isn't verified
-        if (!User::where("email", $request->email)->get()->first()->email_verified) {
+        if (!$user->email_verified) {
             return response()->json([
                 'success' => false,
                 // 'token' => $token,
@@ -52,7 +55,7 @@ class ApiController extends Controller
         }
 
         // if account email is deleted
-        if (User::where("email", $request->email)->get()->first()->is_deleted == 1) {
+        if ($user->is_deleted == 1) {
             return response()->json([
                 'success' => false,
                 // 'token' => $token,
@@ -65,6 +68,7 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'token' => $token,
+            'user' => new UserResource($user)
         ]);
     }
 
